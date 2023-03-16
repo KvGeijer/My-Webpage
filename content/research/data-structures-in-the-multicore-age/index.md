@@ -1,7 +1,7 @@
 +++
 title="Data Structures in the Multicore Age"
 description="In the age of increasing hardware parallelism Nir Shavit writes how he thinks software design will be impacted. He argues for the need of looser concurrent structures to reduce the inherent communication costs in strict ones."
-date=2022-03-08
+date=2023-03-08
 
 [taxonomies]
 categories = ["Research summary"]
