@@ -51,6 +51,8 @@ navbar_items = [
  ]},
 ]
 
+colorscheme = "dark"
+
 # Add links to favicon, you can use https://realfavicongenerator.net/ to generate favicon for your site
 [extra.favicon]
 favicon_16x16 = "/icons/favicon-16x16.png"
