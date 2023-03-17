@@ -1,6 +1,6 @@
 +++
-title="How can I use Atom to follow Samuel's blog?"
-date=2023-03-16
+title="How can I use web feeds to follow Samuel's blog?"
+date=2023-03-17
 
 [taxonomies]
 categories = ["Blog"]
@@ -10,7 +10,7 @@ tags = ["atom", "rss", "blog"]
 toc = true
 +++
 
-Yesterday when I checked [Samuel's blog](https://samuelselleck.com/blog) as I do every now and then, I noticed that he had published a [new post](https://samuelselleck.com/blog/published-my-first-rust-crate/) a whole week ago. Imagine my horror when I realized I was a whole week late to this life changing information! I knew then that it was time to look into RSS and web feeds to find out how I can keep track of updates for things such as this blog. So today I will share my findings with you, so you also can follow Samuel!
+A couple days ago when I checked [Samuel's blog](https://samuelselleck.com/blog), as I do every now and then, I noticed that he had published a [new post](https://samuelselleck.com/blog/published-my-first-rust-crate/) a whole week ago. Imagine my horror when I realized I was a whole week late to this life changing information! I knew then that it was time to look into RSS and web feeds to find out how I can keep track of updates for things such as this blog. So today I will share my findings with you, so you also can follow Samuel!
 
 <!-- more -->
 
@@ -30,9 +30,9 @@ The first step is to find a feed reader that supports Atom (most seem to support
 
 ![feedbro](feedbro.png)
 
-Installing Feedbro was as easy as adding an extension (exists on most browsers). Then you can add feeds to follow in the extension and any new blogs will appear in the Feedbro feed. It contains the whole blog post with images and working links, but it also redirects to the original blog. It also has a powerful rule engine where I for example can set up rules for notifications about updates in my feed.
+Installing Feedbro was as easy as adding an extension (exists on most browsers). Then you can add feeds to follow in the extension and any new blogs will appear in the Feedbro feed. It contains the whole blog post with images and working links, but it also redirects to the original blog. It also has a powerful rule engine where I for example can set up rules for notifications about updates in my feed, or just use the default badges on the extension icon.
 
-To add a feed to the extension you can link to a feed xml link (eg. [https://samuelselleck.com/atom.xml](https://samuelselleck.com/atom.xml)) which it will track for updates. Feedbro also has a feature to use on a site to automatically look for these feed xml links, which is handy for webpages like Samuel's where you have to guess the url (as opposed to my sweet theme which has a link). That's pretty much it. You can extend it further to your liking, but this is a good enough start.
+To add a feed to the extension you can link to a feed xml link (eg. [https://samuelselleck.com/atom.xml](https://samuelselleck.com/atom.xml)) which it will track for updates. However, you have to find that xml link yourself, which can be hard for websites like Samuel's (unlike my own :D) where there is no visible link to the feed. And that's pretty much it. You can extend it further to your liking, but this is a good enough start.
 
 # Conclusion
 
