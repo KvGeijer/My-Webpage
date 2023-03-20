@@ -4,7 +4,7 @@ date=2023-02-18
 
 [taxonomies]
 categories = ["Blog"]
-tags = ["rambling", "introduction"]
+tags = ["blog"]
 
 [extra]
 toc = true

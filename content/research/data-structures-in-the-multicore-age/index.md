@@ -5,7 +5,7 @@ date=2023-03-08
 
 [taxonomies]
 categories = ["Research summary"]
-tags = ["review article", "semantic relaxation", "elimination", "lock-free"]
+tags = ["semantic relaxation", "elimination", "lock-free"]
 
 [extra]
 toc = true
