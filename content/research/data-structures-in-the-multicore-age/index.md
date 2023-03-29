@@ -131,7 +131,7 @@ The simplest way to implement this for a stack is to have an array in front of t
 
 This can also be used as a backoff strategy, where threads first go to the stack but then go to the elimination array in case of contention on the top. Pair this up with an exponential backoff and you have a strictly faster implementation than without this elimination array. When the contention is high there will be many successes with elimination, and if low contention the normal stack will mostly suffice. It is also easy to see that this stack is linearizeable as the normal stack is linearizable and that all eliminated operations take each other out concurrently.
 
-# Elimination Stack
+# Load-Balanced Relaxed Stack
 
 The elimination backoff stack helps a bit, but the worst case scaling can still be the same as the previous ones. As noted before a linearizable sequential stack can't scale forever, so let's now try relaxing the semantics of the stack, swapping linearizability for [quiescent consistency](https://groups.csail.mit.edu/tds/papers/Shavit/ahs-jour.pdf). Informally, a quiescently consistent stack is one where during a period of quiescence (when there are no pending calls to the stack), you can always form a sequential history from the concurrent one (which is only partially ordered). Shavit describes it as a game of dancing chairs, when the music stops everything looks fine. But if two pop calls are concurrent they might return in the opposite order of what you would expect the top two elements to be. But I don't fully understand since it seems we could define linearization points to make it linearizable.
 
