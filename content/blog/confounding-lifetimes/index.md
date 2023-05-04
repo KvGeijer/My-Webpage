@@ -1,6 +1,6 @@
 +++
 title="Confounding Rust lifetimes"
-date=2023-04-12
+date=2023-05-03
 
 [taxonomies]
 categories = ["Blog"]
