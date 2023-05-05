@@ -16,7 +16,7 @@ I don't think I will ever completely understand Rust lifetimes. Every time I thi
 
 # Borrow checker basics
 
-One of the advantages of Rust is that it's an efficient language like C, but has many modern features like generics, a modern macro system, and more support for functional programming. But the main novelty of Rust is its memory safety guarantees, and that power is granted by the powerful (powerfully annoying?) borrow checker. Its main responsibility is that a Rust program never dereferences a dangling pointer, but it also forces us to design our program in well-structured ways.
+One of the advantages of Rust is that it's an efficient language like C, but has many modern features like generics, a modern macro system, and more support for functional programming. But the main novelty of Rust is its memory safety guarantees, and that power is granted by the powerful borrow checker. Two of its most notable responsibilities are that a Rust program never dereferences a dangling pointer, and to prevent [aliasing](https://en.wikipedia.org/wiki/Aliasing_(computing)). This really impacts how we can write programs, and forces us to structure our programs in clear ways.
 
 Rust doesn't have raw pointers (here we only talk about [safe Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html), which is the majority of all Rust code) but instead we can borrow variables as either mutable or immutable. A borrow creates a reference, which is basically a pointer, but with guarantees by the borrow checker. It enforces these two rules
 1. A variable can be immutably borrowed several times at once, but not while being mutably borrowed,
@@ -149,7 +149,7 @@ var a = "third";
 print_a();
 ```
 
-What do you think should happen here? It is not very clear, but what is usually wanted is that the closure should capture the first `a` variable, so when we shadow it later (in the same scope) it should not effect the function, as we have not changed the actual variable, just shadowed it in the environment. So we should get `first, second, second`, but with my implementation, I would get `first, second, third`, as the function just has a pointer to one of the maps in the environment stack. But, that was just something I found fun, and not super relevant here...
+What do you think should happen here? It is not very clear, but what is usually wanted is that the closure should capture the first `a` variable, so when we shadow it later (in the same scope) it should not affect the function, as we have not changed the actual variable, just shadowed it in the environment. So we should get `first, second, second`, but with my implementation, I would get `first, second, third`, as the function just has a pointer to one of the maps in the environment stack. But, that was just something I found fun, and not super relevant here...
 
 ## Naive Rust implementation
 
