@@ -91,7 +91,7 @@ fn mutably_borrow_top_value<'a>(top: &'a mut Stack<'a>) -> &'a mut i64 {
 This was a quick introduction to lifetimes, and we will go over a bit more complicated lifetimes later in this post. But there is much to learn, and here I present some further excellent learning material if you are interested. The Rust book has a chapter [Validating References with Lifetimes](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html) about the basics. 
 * Rust by example has some good ones [here](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html).
 * The scary Rustonomicon has a cryptic, but very important, chapter [Subtyping and Variance](https://doc.rust-lang.org/nomicon/subtyping.html) which is more theoretical.
-* Then the excellent [Jon Gjenset](https://www.youtube.com/c/jongjengset) covers similar topics to the book, but in livestreams with well thought out examples and discussions. They are a bit longer to read, but if you invest the time you will certainly learn a lot.
+* Then the excellent [Jon Gjengset](https://www.youtube.com/c/jongjengset) covers similar topics to the book, but in livestreams with well thought out examples and discussions. They are a bit longer to read, but if you invest the time you will certainly learn a lot.
   * His video [Crust of Rust: Lifetime Annotations](https://www.youtube.com/watch?v=rAl-9HwD858) goes over the foundational idea and use of lifetimes. 
   * Then his video [Crust of Rust: Subtyping and Variance](https://www.youtube.com/watch?v=iVYWDIW71jk&t=4412s) covers the same topics as the Rustonomicon mentioned above but in a *way* more nuanced and understandable way. Additionally, it covers PhantomData at the end, which I will not even cover in this post.
 
@@ -261,7 +261,7 @@ The neat thing with these subtype relations is that it works to assign a subtype
 
 However, not all type constructors are covariant. Especially interesting for us is the mutable reference `&mut` which is not covariant over its type `T`. Instead it is invariant, meaning that `&mut T: &mut U` if and only if `T = U`. This is very restrictive and makes mutable references hard to work with sometimes. Note however that they are still covariant over their lifetime, so if `'a: 'b` then `&'a mut T: &'b mut T`.
 
-But why do mutable references have to be invariant? I won't at this moment learn or go through the theory and proofs of this. Instead we'll look at a concrete example that I think will give more intuition (example credited to [Jon Gjenset](https://youtu.be/iVYWDIW71jk?t=2720)). Let's create the following function with a mutable reference.
+But why do mutable references have to be invariant? I won't at this moment learn or go through the theory and proofs of this. Instead we'll look at a concrete example that I think will give more intuition (example credited to [Jon Gjengset](https://youtu.be/iVYWDIW71jk?t=2720)). Let's create the following function with a mutable reference.
 
 ``` rust
 fn foo<'a>(x: &mut &'a str, s: &'a str) {
