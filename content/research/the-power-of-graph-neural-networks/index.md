@@ -126,7 +126,7 @@ h_v^{(l)} = \sigma\left( W_1^{(l)}h_v^{(l-1)} + \Sigma_{u \in N_G(v)} W_2^{(l)}h
 While this expresses the update function of a single vertex embedding, we can move it to matrix form to find the embeddings of all vertexes.
 
 {% katex(block=true) %}
-h^{(l)} = \sigma\left( W_1^{(l)}h_v^{(l-1)} + A W_2^{(l)}h^{(l-1)}  + B^{(l)}\right)
+h^{(l)} = \sigma\left( W_1^{(l)}h^{(l-1)} + A W_2^{(l)}h^{(l-1)}  + B^{(l)}\right)
 {% end %}
 
 So
