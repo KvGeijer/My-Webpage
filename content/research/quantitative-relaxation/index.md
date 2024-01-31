@@ -4,7 +4,7 @@ date=2023-05-16
 
 [taxonomies]
 categories = ["Research summary"]
-tags = ["relaxed semantics"]
+tags = ["relaxed semantics", "lock-free"]
 
 [extra]
 toc = true
@@ -19,7 +19,7 @@ If you want a broader introduction to the motivation of semantic relaxation, and
 # Specifying sequential data structures
 To specify relaxed data structures we need to be able to first specify sequential ones. This builds up to specifying a labeled transition system (LTS), which defines possible states and allowed transitions for each data structure.
 
-A *sequential history* **s** is a sequence over the labeled methods of a data structure (including input and output values). So for a stack, an example could be `push(1), push(2), pop(2), push(3)`. A data structure is then *specified* by the set of all allowed sequential histories, such that the semantics are upheld. 
+A *sequential history* **s** is a sequence over the labeled methods of a data structure (including input and output values). So for a stack, an example could be `push(1), push(2), pop(2), push(3)`. A data structure is then *specified* by the set of all allowed sequential histories, such that the semantics are upheld.
 
 A core concept is that two linear histories can be considered *S-equivalent* (S comes from sequential specification, but I intuitively think of state) if they correspond to the same state. For example, `push(1), push(2), pop(2), push(3)` and `push(1), push(3)` are equivalent under this relation. They define this by saying that two histories are equivalent if any valid continuation to one of them is valid for the other one, which I find quite elegant.
 
@@ -52,7 +52,7 @@ With this definition, we can create a quantitatively relaxed data structure for 
 
 The out-of-order relaxation is the most widely used one in the literature, and now we have all the tools to define it quantitatively.
 
-Intuitively this relaxation says that the cost of a transition is the shortest number of methods to apply to make the transition valid in the sequential LTS. 
+Intuitively this relaxation says that the cost of a transition is the shortest number of methods to apply to make the transition valid in the sequential LTS.
 
 Formally they define this by looking at the transition from *q* to *q'* with the method *m*. The transition cost is given by the length of **v**, where **v** is a kernel (of minimal length) for which one of the following must hold:
 1. **Removing v**. The trace **uvw** is a kernel of the initial state q, **uw** is also a kernel sequence and m sequentially transitions either ([**s**] is the equivalence class of the sequence **s**)
