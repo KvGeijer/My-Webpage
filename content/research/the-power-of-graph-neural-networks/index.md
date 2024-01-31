@@ -10,7 +10,7 @@ tags = ["graph", "graph neural network", "machine learning"]
 toc = true
 +++
 
-There is something about graph algorithms - they are just always fun to think about! With that said, Graph Neural Netorks (GNN) are no exception. These are a form of neural network, but designed in a way to learn things _about_ graphs. They have proven to be usefull for a plethora of graph learning problems, and can efficiently learn to estimate missing edges, vertex embeddings, and properties spannign the whole graph. In this post, I will present the difficulty of directly applying neural networks (NN) to graphs, how message passing NN solves this, and end by looking at the expressing power of such GNN.
+There is something about graph algorithms - they are just always fun to think about! With that said, Graph Neural Netorks (GNN) are no exception. These are a form of neural network, but designed in a way to learn things _about_ graphs. They have proven to be usefull for a plethora of graph learning problems in fields such as drug discovery, recommender systems, and protein folding. In this post, I will present the difficulty of directly applying neural networks (NN) to graphs, how message passing NN solves this, and end by looking at the expressive power of such GNN.
 
 <!-- more -->
 
@@ -33,9 +33,9 @@ E_G \subseteq V_G \times V_G
 {% katex(block=false) %}
 L_G : V_G \rightarrow \Sigma \in \R^d
 {% end %}
-  - Each vertex has a set of labels, which contain some extra information about what the node represents. This could for example be geographical coordinates if the graph represents a geographical map.
+  - Each vertex has a set of labels, which contain some extra information about what the node represents. This could for example be geographical coordinates if the graph represents a map.
 
-If you have not worked much with graphs, they might seem niche, but you later realize they are everywhere. Some examples of where graphs are used:
+If you have not worked much with graphs, they might seem niche, but you later realize that they are everywhere. Here are a few examples of where graphs are used:
 - To model social networks,
 - Knowledge graphs are popular to build up a structured network of knowledge,
 - Geographical maps,
@@ -53,7 +53,7 @@ There are three main embeddings we want to learn when to comes to graph learning
 - Graph embedding
   - Here we want to learn a property about the whole graph in aggregate. When used in drug discovery, this could help predict the molecular properties of a drug (a graph).
 
-Thes can be seen as the main embeddings we are usually interested in. However, as we will see later, in GNN we often mainly care about vertex embeddings which we in turn aggregate to the other embeddings if wanted.
+Thes can be seen as the main embeddings we are usually interested in. However, as we will see later, in GNN we primarily care about vertex embeddings which we in turn aggregate to the other embedding types if wanted.
 
 # Applying Deep Learning to Graphs
 
@@ -62,22 +62,20 @@ Deep learning has recently proven to be extremely useful for a variety of machin
 ## Common Ideas of Deep Learning
 
 Before we begin with GNN, we should look at what basic building blocks used in Deep Learning (DL). Classic DL network are constructed as several layers, each with the following characteristics:
-- First, we apply some form of linear transformation of the input (which can be modeled with a matrix multiplication of some sort). For example, this can be a fully connected layer in a NN, or a convolutional layer in a CNN.
-  - This is nice to mix the inputs, and form connections. But, if we just combine a bunch of these, we could just represent the combination as a big matrix multiplication. We need something more.
-- Secondly, there is some non-linear activation function. This is the key which gives the network its elevated expressive power compared to a linear transformation. Examples of this can be versions of Rectified Linear Units (ReLU), which basically apply `f(x) -> max(x, 0)` to all inputs.
+- First, we apply some form of linear transformation of the input (which can be modeled with a matrix multiplication). For example, this can be a fully connected layer in a NN, or a convolutional layer in a CNN.
+- Secondly, there is some non-linear activation function. This is the key which gives the network its elevated expressive power compared to a linear transformation. Examples of this can be versions of Rectified Linear Units (ReLU), which apply `f(x) -> max(x, 0)` to all inputs.
 
 ## Naive Neural Networks
 
-The simplest idea in DL is often to just throw neural networks at the problem, and one might want to simply throw a NN at a set of graphs to learn some hidden embedding for them (say we feed the adjacency matrix appended with node features as input). However, this quickly becomes problematic due to the complex nature of graphs. When learning things about text or images, we have a sequence or grid of inputs, which have very clear structures in comparison to the endless possibilities of graphs. Here are some concrete problematic points:
+The easiest idea in DL is often to just throw simple neural networks (eg. multilayer perceptrons) at the problem, and one might want to simply throw a NN at a set of graphs to learn some hidden embedding for them (say we feed the adjacency matrix appended with node features as input). However, this quickly becomes problematic due to the complex nature of graphs. When learning things about text or images, we have a sequence or grid of inputs, which have very clear structures in comparison to the endless possibilities of graphs. Here are some concrete problematic points:
 - **Variable size**: Different graphs will have different sizes. This is also a problem for images, but there the naive solution of cropping/resizing and padding them work rather well. However, how would one rezise a graph? Where would we add padding or crop nodes?
-- **Complex topology**: This is sort of the underlying problem, but there is no set notion of locality or order in a graph. For example, there is no 'top left' or 'first' vertex, as there are in sequences of grids.
-- **Input invariance**: This follows from the second point as there is no predefined order among the vertices. As most DL methods are dependent on the order of the input (eg. a classical NN), the order you pass the nodes becomes paramount. We desire a method where the order of the inputs have zero effect (the locaility will be based on edges instead of input position), but this is trickly with simple NN.
+- **Input invariance**: As the topology in a graph is dynamically dependend on neighbors, there is no predefined order among the vertices. As most DL methods are dependent on the order of the input, the order you pass the nodes becomes paramount. We want a method where the order of the inputs have zero effect (the locaility will be based on edges instead of input position).
 
-So, just throwing a neural network is not the way to go. Instead we need a method which can handle variably sized graphs, as well as handle the complex topology and invarianve over node order which is so inherent to graphs.
+So, just throwing a neural network at a graph is not the way to go. Instead, we need a method which can handle variably sized graphs, as well as handle the complex topology and invarianve over node order which is so inherent to graphs.
 
 ## Convolutional Neural Networks
 
-We take inspiration from the idea of Convolutional Neural Networks (CNN), which are used extensively where the inputs are grids. The idea is that you convolve the input with some small kernel with learnable parameters (way less parameters than a fully connected layers). For 2D inputs, this can be seen as sliding this kernel (a small matrix) over the input grid, for each overlap pairwise multiplying overlapping values and then summing them together. This is done for all possible overlaps, and you get a transformed output. This is visualized below where we can see how a 3x3 kernel operates on a 3 by 3 area to find one output (then it slides to find the rest).
+We take inspiration from the idea of Convolutional Neural Networks (CNN), which are used extensively where the inputs are grids. The idea is that you convolve the input with some small kernel with learnable parameters (way less parameters than a fully connected layer). For 2D inputs, this can be seen as sliding this kernel (a small matrix) over the input grid, for each overlap pairwise multiplying overlapping values and then summing them together. This is done for all possible overlaps, and you get a transformed output. This is visualized below where we can see how a 3x3 kernel operates on a 3 by 3 area to find one output (then it slides to find the rest).
 
 ![CNN](./gnn.svg)
 
@@ -91,11 +89,11 @@ So, a 3x3 kernel for each node (disregarding edges) essentially adds a weighted 
 
 ## Message Passing Neural Networks
 
-Let's expand the idea from CNN we showed before, to create a Message Passing Neural Network (MPNN). Given the following graph
+Let's expand the idea from CNN which we showed before, to create a Message Passing Neural Network (MPNN). Given the following graph
 
 ![Graph](./graph.svg)
 
-we can want to use the idea of aggregating neighbor embeddings as shown above. Furthermore, the algorithm should not just take the immediate neighbors into account, but also their neighbors, and their neighbors, and so on. This can be done by creating a custom computation network for each node. The following image depicts the computation graph for the green node above.
+we want to use the idea of neighbor aggregation to find intermediate embeddings. Furthermore, the algorithm should not just take the immediate neighbors into account, but also their neighbors, and their neighbors, and so on. This can be done by creating a custom computation network for each node. The following image depicts the computation graph for the green node above.
 
 
 ![Green Computation Graph](./node-computation-graph.svg)
@@ -106,9 +104,7 @@ Furthermore, these computation graphs look different for each node, as they have
 
 ![Red Computation Graph](./node-computation-graph-red.svg)
 
-We see that it is different, but each aggregation for every node always looks exactly the same, only we have to stop showing the aggregations at some level for legibility.
-
-The way this is computed is to think of this whole process as iterative. First, the nodes start out with the embedding as their input properties, then they all aggregate values from their neighbors to compute the first-level embedding. This is repeated for some finite number of steps where we decide the nth-level vertex embeddings are the final ones. Formalizing one such step, we get the following.
+So we can see that each node always collects the embeddings of the earlier layer of its neighbors. This can be seen as layers in a neural network, where the input to the first layer is the node labels, the input to the second layer is the embeddings from the first round of message passes, and so on. However, the aggregation and update functions (gray boxes) contain learnable parameters, and can vary in shape and functionality every layer (like the layers in a NN), and they (the boxes) are the same for all nodes in a certain layer. Thus, you need to define the number of layers beforehand, and their design. Formalizing one such layer, we get the following.
 
 {% katex(block=true) %}
 h_v^{(l)} = Upd^{(l)}\left( h_v^{(l-1)}, Agg^{(l)}( \{ h^{(l-1)}_u \forall u \in N_G(v) \} )\right)
@@ -133,7 +129,7 @@ So
 {% katex(block=false) %}
 h^{(n)}
 {% end %}
-becomes the final embeddings, after iterating for some predetermined _n_ iterations (can think of them as layers in a classical NN).
+becomes the final embeddings, after iterating for some predetermined _n_ rounds.
 
 ### Graph embedding
 
@@ -191,7 +187,7 @@ So far, the focus in the ML community has been on characterizing the distinguish
 
 ## Color Refinement
 
-Before moving on to the jucy parts, we have to take a detour to the classical algorithm of _color refinement_. This is an algorithms to color a graph, and is often used as a good heuristic for if two graphs are isomorphic (identical).
+Before moving on to the juicy parts, we have to take a detour to the classical algorithm of _color refinement_, which has some interesting connections to MPNN. This is an algorithms to color a graph, and is often used as a good heuristic for if two graphs are non-isomorphic (not identical).
 
 Here is an overview of how the algorithm works:
 - At the start of the algorithm, all nodes are identically colored.
@@ -250,13 +246,13 @@ This feels a bit like advanced feature engineering, and you can boost the expres
 
 # Conclusion
 
-The idea of Graph Neural Networks feel very natural in todays world, where both graphs and NN are so prelevant. Even though MPNN are shown to have inherent limitation in their expressiveness, they seems to work relatively well in practice. It might be that distinguishing different inputs is not the most important factor for useful ML. Especially when you add some ideas such as incorporating spectral information it might be good enough.
+The idea of Graph Neural Networks feel very natural in todays world, where both graphs and Deep learning are so prevalent. Even though MPNN are shown to have inherent limitation in their expressiveness, they seems to work relatively well in practice, especially when you enhance them with some extra information.
 
-I have only scrached the surface, and think it would be fun to learn more about different GNN. The simple MPNN with averaging and a perceptron layer was cool, but I wonder what new architectures are having success. Is is similar to normal NN?
+I have only scrached the surface, and think it would be fun to learn more about different GNN. The simple MPNN with averaging and a perceptron layer was cool, but I wonder what new architectures are having success. Is is similar to the development history of normal NN?
 
 # Further Reading
 
-I learned about this topic from professor Floris Geerts, at the ACM Europe Summer School on Data Science 2024, where he mainly focused on the expressive power part (cut short in this post). This is where I took most of the information regarding the expressive power here. If you want to learn more about the expressive power of GNN, I suggest you go and look at [his website](https://fgeerts.github.io/) to find some of his talks and publications.
+I learned about this topic from professor Floris Geerts, at the ACM Europe Summer School on Data Science 2023, where he mainly focused on the expressive power part (cut short in this post). This is where I took most of the information regarding the expressive power here. If you want to learn more about the expressive power of GNN, I suggest you go and look at [his website](https://fgeerts.github.io/) to find some of his talks and publications.
 
 If you don't care much for the expressive power, and just want to learn more about the design of GNN, such as different MPNN architectures, and their uses, I recommend the course [CS224W](https://web.stanford.edu/class/cs224w/) from Stanford. All the lectures are available for free on youtube [here](https://youtube.com/playlist?list=PLoROMvodv4rPLKxIpqhjhPgdQy7imNkDn&si=5A-oAolQkq8DMry_). It seems to be an excellent course covering the foundations of GNN.
 
