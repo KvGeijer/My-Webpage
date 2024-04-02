@@ -3,7 +3,7 @@ title="The power of Graph Neural Networks"
 date=2024-01-31
 
 [taxonomies]
-categories = ["Research summary"]
+categories = ["Research Insights"]
 tags = ["graph", "graph neural network", "machine learning"]
 
 [extra]

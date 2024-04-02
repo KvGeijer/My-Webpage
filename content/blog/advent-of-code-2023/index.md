@@ -3,7 +3,7 @@ title="Advent of Code Retrospective"
 date=2024-01-13
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Programming"]
 tags = ["zote", "advent of code"]
 
 [extra]
@@ -23,7 +23,7 @@ Each December, when the darkness is taking over and the nights are getting longe
 
 If you have never participated in the event before, I recommend trying the problems in your own time, and take the opportunity to practice a new language or technique. For example, I've done previous years in Haskell/Python ([2020](https://github.com/KvGeijer/Advent_of_Code_2020)), Rust ([2021](https://github.com/KvGeijer/Advent_of_Rust)), Julia ([2022](https://github.com/KvGeijer/Advent-of-Julia)) and [Zote](https://github.com/KvGeijer/zote) ([2023](https://github.com/KvGeijer/advent-of-zote-2023)). For the best experience, you should also have some friends to discuss the problems with (and your unavoidable bugs).
 
-Finally, there is also an optional competitive aspect to it where people compete to solve each puzzle (released 6 AM CET) as quickly as possible. You can sign up to private leaderboards to compete with friends, and if you ever get top 100 on a problem, you get points on the [global leaderboard](https://adventofcode.com/2023/leaderboard). To illustrate it, here are my stats from 2022, showing how fast I solved each puzzle and what global rank I got 
+Finally, there is also an optional competitive aspect to it where people compete to solve each puzzle (released 6 AM CET) as quickly as possible. You can sign up to private leaderboards to compete with friends, and if you ever get top 100 on a problem, you get points on the [global leaderboard](https://adventofcode.com/2023/leaderboard). To illustrate it, here are my stats from 2022, showing how fast I solved each puzzle and what global rank I got
 
 ![Stats 2022](./stats-2022.png)
 

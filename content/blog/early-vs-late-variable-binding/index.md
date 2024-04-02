@@ -3,7 +3,7 @@ title="Early vs Late Variable Binding"
 date=2023-09-26
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Programming"]
 tags = ["compiler", "zote"]
 
 [extra]
@@ -29,14 +29,14 @@ x := "shadowed";    // declares a new variable, shadowing the old x
 fn f() -> {         // declares a closure (function)
     print(x);
 }
-f();  
+f();
 ```
 
-This will of course print `initial`, `modified`, `shadowed`. 
+This will of course print `initial`, `modified`, `shadowed`.
 
 The following program is less clear. What do you think it should print?
 
-``` rust 
+``` rust
 x := "initial";
 fn f() -> {
     print(x);
@@ -50,7 +50,7 @@ f();
 ```
 
 In both schemes you will first print `modified`, as you print the value of `x`, which in turn has been modified since the declaration of `f`. However, there are two declared `x` variables in the scope at the second call. Which one will be used?
-* Using early binding, the definition of `f` will capture the current (first) `x` variable. Therefore, the second invocation will print `modified`. 
+* Using early binding, the definition of `f` will capture the current (first) `x` variable. Therefore, the second invocation will print `modified`.
 * Conversely, late binding does not capture `x` at the definition of `f`, but instead looks for the value of `x` in its scope at the time of the function call. Here, this would be `shadowed`.
 
 Both of these schemes can be used, and you would for the most part not notice the difference. Early binding is often considered to be the desired behaviour, causing fewer bugs. However, it also has its issues, and the choice of which one to use often depends on the complexity of the interpreter/compiler.
@@ -69,13 +69,13 @@ The main disadvantage to this dynamic variable lookup is that it is incredibly s
 
 When compiling a program, either to bytecode or native code, almost all compilers resolve variable bindings compile time. This is done to minimize the overhead of dynamic lookups, and also aligns perfectly with early variable bindings.
 
-Exactly how this is implemented varies a bit, especially when it comes to the capturing of variables in closures. But the main idea is that all variables are stored at a stack, that is made up of a _stack frame_ for each function call. The offset of each variable from the current stack frame can be known at compile time, so all variable lookups basically just add this offset to the current stack frame address to get the exact address. As shadowing a variable declares a new one and leaves the old one on the stack, they will both co-exist with different addresses. The compilation will make their references use the different offsets and we will therefore get early binding. 
+Exactly how this is implemented varies a bit, especially when it comes to the capturing of variables in closures. But the main idea is that all variables are stored at a stack, that is made up of a _stack frame_ for each function call. The offset of each variable from the current stack frame can be known at compile time, so all variable lookups basically just add this offset to the current stack frame address to get the exact address. As shadowing a variable declares a new one and leaves the old one on the stack, they will both co-exist with different addresses. The compilation will make their references use the different offsets and we will therefore get early binding.
 
 ## Problem with early binding
 
 Early binding is used in many languages, but has one issue in my opinion. To illustrate it. What do you think should happen here?
 
-```rust 
+```rust
 fn f1(x) -> {
     if x == 0 {
         print("base-case");
@@ -164,7 +164,7 @@ fn main() {
             println!("base-case f1")
         }
     };
-    
+
     let f2 = |x| {
         if x > 0 {
             println!("{x}");
@@ -173,7 +173,7 @@ fn main() {
             println!("base-case f2")
         }
     };
-    
+
     f2(2)
 }
 ```
@@ -192,7 +192,7 @@ fn main() {
             println!("base-case f1")
         }
     }
-    
+
     fn f2(x: usize) {
         if x > 0 {
             println!("{x}");
@@ -201,18 +201,18 @@ fn main() {
             println!("base-case f2")
         }
     }
-    
+
     f2(2)
 }
 ```
 
-This actually works, giving the same output as with global functions! Essentially, the compiler looks ahead in each scope for function definitions and assigns their offsets before it starts compiling the functions, where the offsets are needed. To make this play nice, Rust forbids declaring two functions with the same names in each scope. 
+This actually works, giving the same output as with global functions! Essentially, the compiler looks ahead in each scope for function definitions and assigns their offsets before it starts compiling the functions, where the offsets are needed. To make this play nice, Rust forbids declaring two functions with the same names in each scope.
 
 Rust can do this as its compiler first build up a syntax tree of the whole code base before starting to output compiled code. On the other hand, as C was created in the days when such a syntax tree would not fit in memory, it outputs compiled code directly when scanning the code. This means that C would have to look an indefinite amount of tokens forward before starting the compilation of each function if they wanted to do a similar lookahead to Rust, which would not be practical.
 
 # Choice of binding scheme for Zote
 
-So, how should I do variable binding for my virtual machine for Zote? I want mutually dependent functions to work out of the box, but I also want to keep the language small, not separating closures and functions as Rust did. 
+So, how should I do variable binding for my virtual machine for Zote? I want mutually dependent functions to work out of the box, but I also want to keep the language small, not separating closures and functions as Rust did.
 
 Instead, I observe that closures defined in local scopes are usually not mutually dependent with other closures. On the other hand, closures defined at global level are often more complicated and can be mutually dependent (or just defined in a different order than their dependencies). Therefore, I will use late binding for all global variables, and early binding for all locals (implemented with a lookahead on the syntax tree, with re-declarations overwriting the old value), which I hope will create a good user experience.
 

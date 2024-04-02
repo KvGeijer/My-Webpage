@@ -4,18 +4,18 @@ description="In the age of increasing hardware parallelism Nir Shavit writes how
 date=2023-03-08
 
 [taxonomies]
-categories = ["Research summary"]
+categories = ["Research Insights"]
 tags = ["relaxed semantics", "lock-free"]
 
 [extra]
 toc = true
 +++
 
-In his review article [Data Structures in the Multicore Age](https://dl.acm.org/doi/abs/10.1145/1897852.1897873) from 2011 [Nir Shavit](https://www.csail.mit.edu/person/nir-shavit), a prominent researcher in concurrent programming, discussed how the then incoming age of multicores would change how we would need to think about concurrent structures. Before the article parallelism was mainly used in scientific computation and graphics, but systems were largely sequential (and boring). With the advent of multicores, he postulated this would all change, bringing parallelism to the people. It was not revolutionary at the time but turned out true.
+In his review article [Data Structures in the Multicore Age](https://dl.acm.org/doi/abs/10.1145/1897852.1897873) from 2011 [Nir Shavit](https://www.csail.mit.edu/person/nir-shavit), a prominent Research Insightser in concurrent programming, discussed how the then incoming age of multicores would change how we would need to think about concurrent structures. Before the article parallelism was mainly used in scientific computation and graphics, but systems were largely sequential (and boring). With the advent of multicores, he postulated this would all change, bringing parallelism to the people. It was not revolutionary at the time but turned out true.
 
 While surveying the [current state of concurrent data structures](http://people.csail.mit.edu/shanir/publications/concurrent-data-structures.pdf), Shavit also made bolder claims about how the field would need to adapt. He lists the three key insights as follows:
-> * We are experiencing a fundamental shift in the properties required of concurrent data structures and of the algorithms at the core of their implementation. 
-> * The data structures of our childhood —stacks, queues, and heaps— will soon disappear, replaced by looser “unordered” concurrent constructs based on distribution and randomization. 
+> * We are experiencing a fundamental shift in the properties required of concurrent data structures and of the algorithms at the core of their implementation.
+> * The data structures of our childhood —stacks, queues, and heaps— will soon disappear, replaced by looser “unordered” concurrent constructs based on distribution and randomization.
 > * Future software engineers will need to learn how to program using these novel structures, understanding their performance benefits and their fairness limitations.
 
 # The Difficulty of Concurrent Data Structures
@@ -158,7 +158,7 @@ While this is clever and reduces work by a lot I can't help but feel that it req
 
 # Pool of Stacks
 
-This final implementation fully relaxes the stack, so far as to change its specification to a pool where pushes and pops don't have any temporal ordering. Each thread (could be each set of threads, such as a core as well) gets its own lock-free stack and makes local operations on that stack as much as possible. Then if it tries to pop when its stack is empty it tries to steal an item from another stack. 
+This final implementation fully relaxes the stack, so far as to change its specification to a pool where pushes and pops don't have any temporal ordering. Each thread (could be each set of threads, such as a core as well) gets its own lock-free stack and makes local operations on that stack as much as possible. Then if it tries to pop when its stack is empty it tries to steal an item from another stack.
 
 In the paper, they don't let it return empty and instead block until it finds an item to steal. But it could be implemented if eg ABA counters were used together with top pointers in the stacks. If it made one pass over all stacks seeing that they all are empty, and then made another pass where no ABA counter had changed, it would be safe and linearizable to return empty.
 
@@ -183,9 +183,9 @@ fn pop(local_stack, other_stacks) -> Value | EMPTY
                 value -> return value
 ```
 
-While not keeping any guarantees of order, it is based on stacks and as long as each thread keeps to its own stack it will be correctly ordered. The notion of ordering between threads is not always that important, so this might be good enough in many places we originally would use a stack. At least Shavit thinks so. 
+While not keeping any guarantees of order, it is based on stacks and as long as each thread keeps to its own stack it will be correctly ordered. The notion of ordering between threads is not always that important, so this might be good enough in many places we originally would use a stack. At least Shavit thinks so.
 
-With this relaxation, we get incredibly good scaling. Most operations will be local to the thread and only require one CAS. It will become worse when threads start stealing, but Shavit argues that can be mitigated by some smart designs. 
+With this relaxation, we get incredibly good scaling. Most operations will be local to the thread and only require one CAS. It will become worse when threads start stealing, but Shavit argues that can be mitigated by some smart designs.
 
 This algorithm reminds me a lot of the [Time Stamped Stack](https://dl.acm.org/doi/10.1145/2775051.2676963) which uses a very similar setup with many stacks, but also uses time stamps to guarantee order. It was a while since I read it but it was very neat. Then if we want to relax the stack without completely removing all ordering semantics I recommend the [2D Relaxed Framework](https://arxiv.org/abs/1906.07105) which I have worked a bit on extending. There you relax the structures to allow them to fetch items amongst the *k* top ones instead of just the top. It also uses many substacks and tries to do as many local computations as possible.
 

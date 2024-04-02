@@ -3,7 +3,7 @@ title="Confounding Rust lifetimes"
 date=2023-05-03
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Programming"]
 tags = ["rust", "lifetimes", "zote"]
 
 [extra]
@@ -88,11 +88,11 @@ fn mutably_borrow_top_value<'a>(top: &'a mut Stack<'a>) -> &'a mut i64 {
 
 ## More lifetime resources
 
-This was a quick introduction to lifetimes, and we will go over a bit more complicated lifetimes later in this post. But there is much to learn, and here I present some further excellent learning material if you are interested. The Rust book has a chapter [Validating References with Lifetimes](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html) about the basics. 
+This was a quick introduction to lifetimes, and we will go over a bit more complicated lifetimes later in this post. But there is much to learn, and here I present some further excellent learning material if you are interested. The Rust book has a chapter [Validating References with Lifetimes](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html) about the basics.
 * Rust by example has some good ones [here](https://doc.rust-lang.org/rust-by-example/scope/lifetime.html).
 * The scary Rustonomicon has a cryptic, but very important, chapter [Subtyping and Variance](https://doc.rust-lang.org/nomicon/subtyping.html) which is more theoretical.
 * Then the excellent [Jon Gjengset](https://www.youtube.com/c/jongjengset) covers similar topics to the book, but in livestreams with well thought out examples and discussions. They are a bit longer to read, but if you invest the time you will certainly learn a lot.
-  * His video [Crust of Rust: Lifetime Annotations](https://www.youtube.com/watch?v=rAl-9HwD858) goes over the foundational idea and use of lifetimes. 
+  * His video [Crust of Rust: Lifetime Annotations](https://www.youtube.com/watch?v=rAl-9HwD858) goes over the foundational idea and use of lifetimes.
   * Then his video [Crust of Rust: Subtyping and Variance](https://www.youtube.com/watch?v=iVYWDIW71jk&t=4412s) covers the same topics as the Rustonomicon mentioned above but in a *way* more nuanced and understandable way. Additionally, it covers PhantomData at the end, which I will not even cover in this post.
 
 # My recent failure
@@ -251,7 +251,7 @@ This error message is cryptic, but hopefully we will soon make some sense out of
 
 ### Invariant lifetimes
 
-To understand what invariant lifetimes are we need to dig a bit deeper. In theory, lifetimes work as types, where the relation `'a: 'b` means that `'b` is a subtype of `'a`, or informally `'a` is at least as useful (lives for at least as long) as `'b`. As an example, the static lifetime `'static` used for values alive the whole execution, like string literals in the code, is a subtype of all other lifetimes as it will be alive for at least as long.  
+To understand what invariant lifetimes are we need to dig a bit deeper. In theory, lifetimes work as types, where the relation `'a: 'b` means that `'b` is a subtype of `'a`, or informally `'a` is at least as useful (lives for at least as long) as `'b`. As an example, the static lifetime `'static` used for values alive the whole execution, like string literals in the code, is a subtype of all other lifetimes as it will be alive for at least as long.
 
 But we seldom talk about lifetimes on their own, instead we for example talk about references `&'a T`. Here the reference `&` is a so-called [type constructor](https://en.wikipedia.org/wiki/Type_constructor). When a type constructor is supplied with its arguments (here `'a` and `T`) it forms the type `&'a T` (so `&` is a type constructor while `&'a T` is a type).
 

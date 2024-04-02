@@ -3,7 +3,7 @@ title="Learning to Touch Type with Colemak"
 date=2023-06-12
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Novelties"]
 tags = ["keyboard"]
 
 [extra]
@@ -22,9 +22,9 @@ There are several good websites to practice typing, such as [typeracer.com](type
 
 After using these websites for a couple of days I quickly grew frustrated and gave up. It was hard to break old habits, and I constantly found myself looking down at the keyboard. It was annoying and did not feel like a sustainable way to transition.
 
-Instead, I decided to try out a different keyboard layout. The keyboard layout acts as an interface between the computer and the keyboard, deciding how the computer should interpret the presses of different physical keys. The most common one is QWERTY, which I used before (albeit the Swedish version), but there are quite a few more to choose from for the curious. 
+Instead, I decided to try out a different keyboard layout. The keyboard layout acts as an interface between the computer and the keyboard, deciding how the computer should interpret the presses of different physical keys. The most common one is QWERTY, which I used before (albeit the Swedish version), but there are quite a few more to choose from for the curious.
 
-The main advantage of switching layout was that I would have to completely relearn how to type, which would mean I would get rid of most of my bad habits. Furthermore, I would no longer get help from looking at the keyboard, hopefully meaning I would stop doing it much easier. After some hours of research, I chose to use [Colemak](https://colemak.com/) which is one of the most common layouts, and maintains a balance between keeping some keys while rearranging the most important ones (optimizes key layouts for more ergonomic and smooth typing).
+The main advantage of switching layout was that I would have to completely relearn how to type, which would mean I would get rid of most of my bad habits. Furthermore, I would no longer get help from looking at the keyboard, hopefully meaning I would stop doing it much easier. After some hours of Research Insights, I chose to use [Colemak](https://colemak.com/) which is one of the most common layouts, and maintains a balance between keeping some keys while rearranging the most important ones (optimizes key layouts for more ergonomic and smooth typing).
 
 ![ColemakLayout](Colemak.png)
 

@@ -3,7 +3,7 @@ title="What's this?"
 date=2023-02-18
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Blogging"]
 tags = ["blog"]
 
 [extra]
@@ -26,7 +26,7 @@ I would not have done this if I was not inspired by some really cool people, so 
 
 # So what will the website contain?
 
-The main part of this website will be a collection of informal blog posts about a bit of everything,  but I have some ideas of different post types. 
+The main part of this website will be a collection of informal blog posts about a bit of everything,  but I have some ideas of different post types.
 * The first type is where I write about my current coding adventures. Some ideas are the [Synacor challenge](https://challenge.synacor.com/), [Advent of Code](https://adventofcode.com/), writing [my own language](https://github.com/ka7801vo/Zote), learning [concurrent Rust](https://www.youtube.com/watch?v=fvcbyCYdR10), and so on.
 * The second type of post is where I will write some summaries of interesting research I come across. In general I often find myself frustrated with academic papers as they can be unnecessarily unintuitive (I assume to fit all the theory within the space constraints for publications). So even though the base ideas can be very nice and simple, it can take hours to actually get that understanding. The [first post](../../research/frequencies-in-data-streams) on this site was actually one of these about stream computation!
 * Then there will be the random posts about other stuff I am interested in at the moment. It could be something like climbing, outdoor adventures, or building a custom keyboard.

@@ -3,7 +3,7 @@ title="Decision Trees for Data Streams"
 date=2023-03-16
 
 [taxonomies]
-categories = ["Research summary"]
+categories = ["Research Insights"]
 tags = ["stream data", "decision trees"]
 
 [extra]
@@ -112,7 +112,7 @@ Recomputing the information gain for every new sample is inefficient and takes u
 
 #### Memory
 
-As mentioned earlier the counts for each leaf will take up a lot of memory and can potentially fill up the RAM. By estimating how important certain leaves are (how many samples times its classification error rate) VFDT will deactivate the least promising leaves when memory becomes an issue, freeing their counts. Leafs can later be reactivated (with all counts reset) when their old estimated importance becomes higher than the active leaves. 
+As mentioned earlier the counts for each leaf will take up a lot of memory and can potentially fill up the RAM. By estimating how important certain leaves are (how many samples times its classification error rate) VFDT will deactivate the least promising leaves when memory becomes an issue, freeing their counts. Leafs can later be reactivated (with all counts reset) when their old estimated importance becomes higher than the active leaves.
 
 #### Poor Features
 
@@ -120,7 +120,7 @@ Features with low estimated information gain in a leaf take up a lot of memory w
 
 #### Initialization
 
-By using the offline method on an initial subset of the data, VFDT gets a head start, making it reach higher accuracies faster. This makes it better in cases where the naive Hoeffding algorithm would have been underfitted. 
+By using the offline method on an initial subset of the data, VFDT gets a head start, making it reach higher accuracies faster. This makes it better in cases where the naive Hoeffding algorithm would have been underfitted.
 
 In the paper, they don't motivate this much, but personally, I feel that this is a rather strange thing. Of course, this is good for smaller datasets, but should we then not use some other offline method? I guess one other advantage of VFDT other than the memory use is its speed, so that might give it a use case for these medium-sized data sets.
 

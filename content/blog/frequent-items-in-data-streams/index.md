@@ -4,20 +4,20 @@ description="An introduction to stream processing and the frequent item problem.
 date=2023-02-17
 
 [taxonomies]
-categories = ["Research summary"]
+categories = ["Research Insights"]
 tags = ["stream data", "sketches"]
 
 [extra]
 toc = true
 +++
 
-Big data streams are everywhere today as we get increasingly digital, as well as taking more and more automated measurements. An example could be search queries with an internet search engine, where the provider would want to analyze search patterns, such as common searches. It is often preferable to process these streams online, meaning we don't store the data and only make one pass over it. Some metrics such as variance are possible to compute like this, but for many others you have to give up some required information, making the results only approximately true (do you remember your epsilon delta proofs?). 
+Big data streams are everywhere today as we get increasingly digital, as well as taking more and more automated measurements. An example could be search queries with an internet search engine, where the provider would want to analyze search patterns, such as common searches. It is often preferable to process these streams online, meaning we don't store the data and only make one pass over it. Some metrics such as variance are possible to compute like this, but for many others you have to give up some required information, making the results only approximately true (do you remember your epsilon delta proofs?).
 
 This post gives an introduction to the topic of finding frequent items in data streams using these online algorithms. It is mainly based on the papers [_Methods for Finding Frequent Items in Data Streams_](http://dimacs.rutgers.edu/~graham/pubs/papers/freqvldbj.pdf) as well as [_What’s New: Finding Significant Differences in Network Data Streams_](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1561219) with _Graham Cormode_ being first author for both. The first gives an overview of all methods, while the second is needed to fully understand the last one. The sections about specific algorithms have links to the originating paper as well.
 
 ## Problem description
 
-Apart from having to do only one pass over the input, we are also required to use memory strictly sublinear to the input size. Otherwise all the information in the stream could just be saved and the exact result always found... 
+Apart from having to do only one pass over the input, we are also required to use memory strictly sublinear to the input size. Otherwise all the information in the stream could just be saved and the exact result always found...
 
 The streaming problem studied here is the frequent item problem which the first paper describe like this.
 >  Informally, given a sequence of items, the problem is simply to find those items which occur most frequently. Typically, this is formalized as finding all items whose frequency exceeds a specified fraction [(φ)] of the total number of items. Variations arise when the items are given weights, and further when these weights can also be negative.

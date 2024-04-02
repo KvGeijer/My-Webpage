@@ -3,7 +3,7 @@ title="From Puzzle Games to Programming"
 date=2023-08-08
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Reflections"]
 tags = ["gaming"]
 
 [extra]

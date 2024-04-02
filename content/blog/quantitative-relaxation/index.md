@@ -3,7 +3,7 @@ title="Quantitative Relaxation of Concurrent Data Structures"
 date=2023-05-16
 
 [taxonomies]
-categories = ["Research summary"]
+categories = ["Research Insights"]
 tags = ["relaxed semantics", "lock-free"]
 
 [extra]

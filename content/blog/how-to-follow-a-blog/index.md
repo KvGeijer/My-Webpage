@@ -3,7 +3,7 @@ title="How can I use web feeds to follow Samuel's blog?"
 date=2023-03-17
 
 [taxonomies]
-categories = ["Blog"]
+categories = ["Blogging"]
 tags = ["atom", "rss", "blog"]
 
 [extra]
