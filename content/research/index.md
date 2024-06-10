@@ -8,7 +8,7 @@ template = "standalone-page.html"
 
 - How to Relax Instantly: Elastic Relaxation of Concurrent Data Structures (Euro-Par 2024). Kåre von Geijer, Philippas Tsigas.
   - Relaxed concurrent data structures have previously been introduced as a way to parallelize inherently sequential data structures, such as queues, as the cost of their sequential semantics. This paper introduces the concept of *elastic relaxation*, where the degree of relaxation can be dynamically adjusted at run-time, and extends a previous relaxed queue and stack to encompass elasticity.
-  - Accepted manuscript with better references available [here](./research/how-to-relax-instantly.pdf).
+  - Accepted manuscript with better references available [here](./how-to-relax-instantly.pdf).
   - Extended ArXiv pre-print available [here](https://arxiv.org/abs/2403.13644), containing a few extra experiments and proofs.
 
 # Master Thesis Supervision
