@@ -17,8 +17,8 @@ compile_sass = true
 build_search_index = true
 
 # Automatically generate a rss feed https://www.getzola.org/documentation/templates/feeds/
-generate_feed = true
-feed_filename = "atom.xml"
+generate_feeds = true
+feed_filenames = ["atom.xml"]
 
 # Taken from the Theme
 taxonomies = [
