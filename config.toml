@@ -24,6 +24,7 @@ feed_filenames = ["atom.xml"]
 taxonomies = [
     { name = "categories", feed = true, paginate_by = 10 },
     { name = "tags", feed = true, paginate_by = 10 },
+    { name = "genres", feed = true, paginate_by = 10 },
 ]
 
 [markdown]
@@ -46,6 +47,7 @@ navbar_items = [
   { url = "$BASE_URL/", name = "Home" },
   { url = "$BASE_URL/blog", name = "Blog" },
   { url = "$BASE_URL/research", name = "Research" },
+  { url = "$BASE_URL/books", name = "Books" },
 #  { url = "$BASE_URL/tags", name = "Tags" },
 #  { url = "$BASE_URL/categories", name = "Categories" },
  ]},
@@ -70,12 +72,9 @@ avatar = "/images/avatar.jpg"
 [extra.social]
 email = "kare.kvg@gmail.com"
 github = "KvGeijer"
-#keybase = "<keybase_username>" # Should I get this?
 linkedin = "kare-von-geijer"
-#google_scholar = "<googlescholar_userid>"
+google_scholar = "CkOsYlsAAAAJ"
 #orcid = "<orcid_userid>"
-#mastodon_username = "<mastadon_username>"
-#mastodon_server = "<mastodon_server>"
 
 
 # To add google analytics
