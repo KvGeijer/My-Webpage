@@ -1,6 +1,7 @@
 +++
 title = "The Left Hand of Darkness"
 date=2024-06-26
+template = "book-page.html"
 
 [taxonomies]
 genres = ["Science Fiction"]
