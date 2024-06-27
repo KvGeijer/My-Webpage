@@ -20,7 +20,7 @@
     <updated>{{ last_updated | date(format="%+") }}</updated>
     <id>{{ feed_url | safe }}</id>
     {%- for page in pages %}
-    {% if not page.relative_path is starting_with("projects") %}
+    {% if page.relative_path is starting_with("blog") %}
     <entry xml:lang="{{ page.lang }}">
         <title>{{ page.title }}</title>
         <published>{{ page.date | date(format="%+") }}</published>
