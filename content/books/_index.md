@@ -1,6 +1,6 @@
 +++
 title = "Book Reviews"
-description = "Short reviews of books I've read."
+description = "Short reviews of non-work books I've read, starting in mid 2024."
 sort_by = "date"
 template = "media-reviews.html"
 
