@@ -14,7 +14,7 @@ Consider a process where _n_ balls are inserted at random into _n_ bins. Then, o
 
 <!-- more -->
 
-Due to its far reaching implications, I came across this problem when researching the theoretical guarantees of the [MuliQueue](https://dl.acm.org/doi/10.1145/2755573.2755616), as analyzed in the paper [The Power of Choice in Priority Scheduling](https://dl.acm.org/doi/abs/10.1145/3087801.3087810). If you want to read more about this MultiQueue, which is an efficient relaxed priority queue, I already have an introductory blog to it [here](@/blog/multiqueue-introduction/index.md). Instead, this post will mainly summarize [The Power of Two Random Choices: A Survey of Techniques and Results](https://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf), which is a survery paper about the balls-into-bins process from 2001 by Michael Mitzenmacher et al.
+Due to its far reaching implications, I came across this problem when researching the theoretical guarantees of the [MuliQueue](https://dl.acm.org/doi/10.1145/2755573.2755616), as analyzed in the paper [The Power of Choice in Priority Scheduling](https://dl.acm.org/doi/abs/10.1145/3087801.3087810). If you want to read more about this MultiQueue, which is an efficient relaxed priority queue, I already have an introductory post about it [here](@/blog/multiqueue-introduction/index.md). Instead, this post will mainly summarize [The Power of Two Random Choices: A Survey of Techniques and Results](https://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf) from 2001, which is a survery paper about the balls-into-bins process by Michael Mitzenmacher et al.
 
 # Introduction
 
@@ -92,5 +92,36 @@ We also know that {% katex(block=false) %} \beta_0 = n {% end %}, which means th
 
 Notation:
 - Let the state at time _t_ be the state of the system after ball _t_ is placed.
-- _B(n, p)_ is a Bernoulli random variable with
+- _B(n, p)_ is a binomial random variable (they call it Bernoulli in the paper) with parameters _n_ nad _p_.
+- _h(t)_ denotes the height of ball _t_.
+- {% katex(block=false) %} \nu_i(t) {% end %} denotes the number of bins with load at least _i_ at time _t_.
+- {% katex(block=false) %} \mu_i(t) {% end %} denotes the number of balls with height at least _i_ at time _t_.
+- They use {% katex(block=false) %} \nu_i, \mu_i {% end %} as {% katex(block=false) %} \nu_i(n), \mu_i(n) {% end %} when the meaning is clear.
+<!--
+They start out with two helpfull and elementary lemma. The first one describes sums of Bernoulli variables and binomial distributions with coupled random variables:
 
+> **Lemma 2** Let {% katex(block=false) %} X_1 {% end %}, {% katex(block=false) %} X_2 {% end %}, ... {% katex(block=false) %} X_n {% end %} be a sequence of random variables in an arbitrary domain, and let {% katex(block=false) %} Y_1 {% end %}, {% katex(block=false) %} Y_2 {% end %}, ... {% katex(block=false) %} Y_n {% end %} be a sequence of binary random variables, with the property that {% katex(block=false) %} Y_i = Y_i(X_1,...,X_{i-1}) {% end %}. If
+{% katex(block=true) %} \textit{Pr}(Y_i = 1| X_1,...,X_{i-1}) \leq p, {% end %}
+then
+{% katex(block=true) %} \textit{Pr}(\sum_{i=1}^n Y_i \geq k) \leq \textit{Pr}(B(n, p) \geq k), {% end %}
+and similarly, if
+{% katex(block=true) %} \textit{Pr}(Y_i = 1| X_1,...,X_{i-1}) \geq p, {% end %}
+then
+{% katex(block=true) %} \textit{Pr}(\sum_{i=1}^n Y_i \leq k) \leq \textit{Pr}(B(n, p) \leq k). {% end %}
+
+The second lemma describes Chernoff-type bounds
+
+> **Lemma 3** If {% katex(block=false) %} X_i ~~ (1 \leq i \leq n){% end %} are independent binary random variables, {% katex(block=false) %} \textit{Pr}(X_i = 1) = p {% end %}, then the following hold:
+{% katex(block=true) %} \textit{For} t \geq np, \hspace{2em} \textit{Pr}(\sum_{i=1}^nX_i \geq t) \leq (\frac{np}{t}^te^{t-np}). {% end %}
+{% katex(block=true) %} \textit{For} t \leq np, \hspace{2em} \textit{Pr}(\sum_{i=1}^nX_i \leq t) \leq (\frac{np}{t}^te^{t-np}). {% end %}
+In particular, we have
+{% katex(block=true) %} \textit{Pr}(\sum_{i=1}^nX_i \geq enp) \leq e^{np}. {% end %}
+{% katex(block=true) %} \textit{Pr}(\sum_{i=1}^nX_i \leq \frac{np}{e}) \leq e^{(\frac{2}{e} - 1)np}. {% end %} -->
+
+Now we can tackle **Theorem 1** properly. To not bore you as the reader, I will here also just keep a sketch, outlining interesting tidbits deviating from the sketch above, and recommend the [original article](https://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf) for the full details.
+
+With the new notation, we want to construct values {% katex(block=false) %} \beta_i {% end %} such that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %} for all _i_ whp. They start out with letting {% katex(block=false) %} \beta_6 = \frac{n}{2e} {% end %} and {% katex(block=false) %} \beta_{i+1} = \frac{e\beta_i^d}{n^{d-1}}, {% end %} for {% katex(block=false) %} 6 \le i \lt i^* {% end %}, where {% katex(block=false) %} i^* {% end %} is to be determined.
+
+#### Induction up to {% katex(block=false) %} i^* {% end %}
+
+They define {% katex(block=false) %} \epsilon_i {% end %} as the event that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %}, which essentially says that the {% katex(block=false) %} \beta {% end %} actually bounds the bins. With basic math {% katex(block=false) %} \epsilon_6 {% end %} holds, and they use induction to prove that it holds for all other _i_ up to {% katex(block=false) %} i^* - 1 {% end %}.
