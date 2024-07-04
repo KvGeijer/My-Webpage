@@ -4,7 +4,7 @@ date=2024-04-19
 
 [taxonomies]
 categories = ["Research Insights"]
-tags = ["relaxed semantics"]
+tags = ["relaxed semantics", "concurrency", "power-of-two"]
 
 [extra]
 toc = true

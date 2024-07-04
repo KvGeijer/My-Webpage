@@ -5,7 +5,7 @@ date=2023-03-08
 
 [taxonomies]
 categories = ["Research Insights"]
-tags = ["relaxed semantics", "lock-free"]
+tags = ["concurrency", "relaxed semantics", "lock-free"]
 
 [extra]
 toc = true
