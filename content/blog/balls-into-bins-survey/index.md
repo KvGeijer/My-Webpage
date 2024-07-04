@@ -58,29 +58,35 @@ at most _log log n / log d + O(1)_.
 
 ### Intuitive proof sketch
 
-First, we note that it is easier to study the number of bins with load _larger than_ _i_ than to study the ones with exact load _i_. They define the _height_ of a ball as one more than the number of balls already in the bin into which the ball is placed, which is a good definition for future use. Let _β_i_ be an upper bound on the number of bins at least loaded with _i_ balls. This _β_i_ is what we want to bound with high probability, using induction.
+First, we note that it is easier to study the number of bins with load _larger than_ _i_ than to study the ones with exact load _i_. They define the _height_ of a ball as one more than the number of balls already in the bin into which the ball is placed, which is a good definition for future use. Let {% katex(block=false) %} \beta_i {% end %} be an upper bound on the number of bins at least loaded with _i_ balls. This {% katex(block=false) %} \beta_i {% end %} is what we want to bound with high probability, using induction.
 
 The induction goes as:
-1. Suppose we know *β_i*, which bounds the number of bins with a load of at least _i_ during the entire process.
-2. We with to find *β_(i+1)*, such that, with high probability, the number of bins with load at least *i+1* is bounded above by *β_(i+1)* over the entire process. This *β_(i+1)* is found by bounding the number of balls with height at least _i+1_.
+1. Suppose we know {% katex(block=false) %} \beta_i {% end %}, which bounds the number of bins with a load of at least _i_ during the entire process.
+2. We with to find {% katex(block=false) %} \beta_{i+1} {% end %}, such that, with high probability, the number of bins with load at least *i+1* is bounded above by {% katex(block=false) %} \beta_{i+1} {% end %} over the entire process. This {% katex(block=false) %} \beta_{i+1} {% end %} is found by bounding the number of balls with height at least _i+1_.
 
-The probability of a ball having height above *i+1* is conditioned on *β_i*, as its random choice of _d_ bins all have to have load above _i_. This leads to the probability of a ball having height at least _i_ to be {% katex(block=false) %} (\frac{\beta_i}{n})^d {% end %}. When {% katex(block=false) %} d \geq 2 {% end %}, this sequence of {% katex(block=false) %} \frac{\beta_i}{n}  {% end %} drops at least quadratically in size, and can be bounded by Bernoulli trials as {% katex(block=false) %} \beta_{i+1} \leq cn\large(\frac{\beta_i}{n}\large)^d{% end %} for some constant _c_. Therefore, if _j = O(log log n)_, {% katex(block=false) %} \beta_j \lt 1 {% end %}, meaning that there with high probability is no such heavily loaded bin.
+The probability of a ball having height above *i+1* is conditioned on {% katex(block=false) %} \beta_i {% end %}, as its random choice of _d_ bins all have to have load above _i_. This leads to the probability of a ball having height at least _i_ to be {% katex(block=false) %} (\frac{\beta_i}{n})^d {% end %}. When {% katex(block=false) %} d \geq 2 {% end %}, this sequence of {% katex(block=false) %} \frac{\beta_i}{n}  {% end %} drops at least quadratically in size, and can be bounded by Bernoulli trials as {% katex(block=false) %} \beta_{i+1} \leq cn\large(\frac{\beta_i}{n}\large)^d{% end %} for some constant _c_. Therefore, if _j = O(log log n)_, {% katex(block=false) %} \beta_j \lt 1 {% end %}, meaning that there with high probability is no such heavily loaded bin.
 
-#### [Bernoulli random variables](https://en.wikipedia.org/wiki/Bernoulli_process)
+#### Understanding the statistics
 
-They state that
+Looking closer at the statistics, they state that:
 > The number of balls with height _i+1_ or more is stochastically dominated by a Bernoulli random variable, corresponding to the number of heads with _n_ (the number of balls) flips, with the probability of a head being {% katex(block=false) %} \large(\frac{\beta_i}{n}\large)^d{% end %} (the probability of a ball being placed in a bin with _i_
 or more balls). We can find an appropriate {% katex(block=false) %} \beta_{i+1} {% end %} using standard bounds on Bernoulli trials, yielding {% katex(block=false) %} \beta_{i+1} \leq cn\large(\frac{\beta_i}{n}\large)^d{% end %}, for some constant _c_.
 
-So, for those of us who have forgotten statistics: What is a Bernoulli random variable? It is essentially a random variable with two outcomes, where each outcome has a static probability. This can be seen a flipping a potentially unfair coin.
+So, for those of us who have forgotten statistics: What is a [Bernoulli random variable](https://en.wikipedia.org/wiki/Bernoulli_process)? It is essentially a random variable with two outcomes, where each outcome has a static probability. This can be seen a flipping a potentially unfair coin.
 
 In this situation, the Bernoulli variable models wether ball _j_ has {% katex(block=false) %} \textit{height} \geq \beta_{i+1} {% end %}. They model this probability as static through the whole process as {% katex(block=false) %} p = \large(\frac{\beta_i}{n}\large)^d {% end %}. This is a simplification, as this essentially only holds for the last ball and that the first couple of balls have _0_ probability of reaching height _i_.
 
-Now that we have a Bernoulli random variable with a static probability _p_, we want to bound the number of _true_ ({% katex(block=false) %} \textit{height} \gt \beta_{i+1} {% end %}) outcomes. This is modeled as a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution), which essentially models a random variable for the number of successfull outcomes of a Bernoulli variable. The binomial random variable thus has two variables _B(n, p)_: the number of trials _n_, and the probability of success _p_.
+Now that we have a Bernoulli random variable with a static probability _p_, we want to bound the number of successful ({% katex(block=false) %} \textit{height} \gt \beta_{i+1} {% end %}) outcomes. This is modeled as a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution), which essentially models a random variable for the number of successfull outcomes of a Bernoulli variable. The binomial random variable thus has two variables _B(n, p)_: the number of trials _n_, and the probability of success _p_.
 
-In summary, they key part is that they model the probability of each ball heigt being larger than {% katex(block=false) %} \beta_{i+1} {% end %} as a Bernoulli variable with probability {% katex(block=false) %} (\frac{\beta_i}{n})^d {% end %}. The number of balls with {% katex(block=false) %} \textit{height} \geq \beta_{i+1} {% end %} can be modeled as a binomial random variable {% katex(block=false) %} B(n, (\frac{\beta_i}{n})^d) {% end %}. Finally, they claim there is a standard Bernoulli trial bound that yields {% katex(block=false) %} \beta_{i+1} \leq cn\large(\frac{\beta_i}{n}\large)^d{% end %}, for some constant _c_.
+In summary, they key part is that they model the probability of each ball heigt being larger than {% katex(block=false) %} \beta_{i+1} {% end %} as a Bernoulli variable with probability {% katex(block=false) %} (\frac{\beta_i}{n})^d {% end %}. The number of balls with {% katex(block=false) %} \textit{height} \geq \beta_{i+1} {% end %} can be modeled as a binomial random variable {% katex(block=false) %} B(n, (\frac{\beta_i}{n})^d) {% end %}. Finally, they claim there is a standard Bernoulli trial bound that yields {% katex(block=false) %} \beta_{i+1} \leq cn\large(\frac{\beta_i}{n}\large)^d{% end %}, for some constant _c_. That means {% katex(block=false) %} \frac{\beta_i}{n} \leq c\large(\frac{\beta_i}{n}\large)^d {% end %} drops quadratically each step (we should need some guarantee on {% katex(block=false) %} c \le 1{% end %} as well?). Therefore after only _O(log n)_ steps, the fraction has dropped below _1/n_! (**TODO** Why is it not _log(n)_?).
+
+{% katex(block=false) %} \frac{\beta_{i+1}}{n} \leq (\frac{\beta_{i}}{n})^2 {% end %}. Therefore, if _j = log(n)_, {% katex(block=false) %} \beta_{j+1} \le n {% end %}
+
+**TODO**: Here are just some thoughts about how to dig deeper.
 
 If one wants to investigate this binomial distribution further, its probability density function, becomes {% katex(block=false) %} f(k, n, p) = \textit{Pr}(X = k) = \binom{n}{k}p^k(1-p)^{n-k} = \binom{n}{k}(\frac{\beta_i}{n})^{d k}(1-(\frac{\beta_i}{n})^d)^{n-k} {% end %}, where _k_ is the number of successes.
+
+We also know that {% katex(block=false) %} \beta_0 = n {% end %}, which means that {% katex(block=false) %} \beta_{i+1} \leq  {% end %}
 
 ### More technical proof
 
