@@ -90,13 +90,15 @@ We also know that {% katex(block=false) %} \beta_0 = n {% end %}, which means th
 
 ### More technical proof
 
-Notation:
+**Notation**:
 - Let the state at time _t_ be the state of the system after ball _t_ is placed.
 - _B(n, p)_ is a binomial random variable (they call it Bernoulli in the paper) with parameters _n_ nad _p_.
 - _h(t)_ denotes the height of ball _t_.
 - {% katex(block=false) %} \nu_i(t) {% end %} denotes the number of bins with load at least _i_ at time _t_.
 - {% katex(block=false) %} \mu_i(t) {% end %} denotes the number of balls with height at least _i_ at time _t_.
 - They use {% katex(block=false) %} \nu_i, \mu_i {% end %} as {% katex(block=false) %} \nu_i(n), \mu_i(n) {% end %} when the meaning is clear.
+-
+
 <!--
 They start out with two helpfull and elementary lemma. The first one describes sums of Bernoulli variables and binomial distributions with coupled random variables:
 
@@ -120,8 +122,9 @@ In particular, we have
 
 Now we can tackle **Theorem 1** properly. To not bore you as the reader, I will here also just keep a sketch, outlining interesting tidbits deviating from the sketch above, and recommend the [original article](https://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf) for the full details.
 
-With the new notation, we want to construct values {% katex(block=false) %} \beta_i {% end %} such that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %} for all _i_ whp. They start out with letting {% katex(block=false) %} \beta_6 = \frac{n}{2e} {% end %} and {% katex(block=false) %} \beta_{i+1} = \frac{e\beta_i^d}{n^{d-1}}, {% end %} for {% katex(block=false) %} 6 \le i \lt i^* {% end %}, where {% katex(block=false) %} i^* {% end %} is to be determined.
+With the new notation, we want to construct values {% katex(block=false) %} \beta_i {% end %} such that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %} for all _i_ whp. They start out with letting {% katex(block=false) %} \beta_6 = \frac{n}{2e} {% end %} and {% katex(block=false) %} \beta_{i+1} = \frac{e\beta_i^d}{n^{d-1}}, {% end %} for {% katex(block=false) %} 6 \le i \lt i^* {% end %}.
 
-#### Induction up to {% katex(block=false) %} i^* {% end %}
-
-They define {% katex(block=false) %} \epsilon_i {% end %} as the event that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %}, which essentially says that the {% katex(block=false) %} \beta {% end %} actually bounds the bins. With basic math {% katex(block=false) %} \epsilon_6 {% end %} holds, and they use induction to prove that it holds for all other _i_ up to {% katex(block=false) %} i^* - 1 {% end %}.
+They define {% katex(block=false) %} \epsilon_i {% end %} as the event that {% katex(block=false) %} \nu_i(n) \leq \beta_i {% end %}, which essentially says that the {% katex(block=false) %} \beta {% end %} actually bounds the bins.
+- By simple math, this holds for  {% katex(block=false) %} \epsilon_6 {% end %}.
+- They also show that {% katex(block=false) %} \epsilon_{i+1} {% end %} holds, conditioned on {% katex(block=false) %} \epsilon_i {% end %}, while {% katex(block=false) %} p_in \leq 2 \log n {% end %}. This is the point they call {% katex(block=false) %} i^* {% end %}.
+- Then they rather simply show that it whp does not hold above {% katex(block=false) %} i^* + 6 {% end %}. From this it drops out that {% katex(block=false) %} i^* + 2 = \frac{\log \log n}{\log d} + O(1) {% end %} which is the end result/
