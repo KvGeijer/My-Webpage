@@ -7,8 +7,8 @@ template = "standalone-page.html"
 # Publications
 
 - [How to Relax Instantly: Elastic Relaxation of Concurrent Data Structures](https://doi.org/10.1007/978-3-031-69583-4_9) (Euro-Par 2024). Kåre von Geijer, Philippas Tsigas.
-  - Accepted manuscript available [here](./how-to-relax-instantly.pdf).
-  - Extended ArXiv pre-print available [here](https://arxiv.org/abs/2403.13644).
+  - Won the Euro-Par 2024 _Best Paper_ award.
+  - Links: [Published paper](https://doi.org/10.1007/978-3-031-69583-4_9), [accepted manuscript](./how-to-relax-instantly.pdf), [extended pre-print](https://arxiv.org/abs/2403.13644), [published artifact](https://zenodo.org/doi/10.5281/zenodo.11547062).
 
 # Master Thesis Supervision
 
