@@ -1,0 +1,92 @@
+{% macro render_genres(genres) %}
+<p>
+  {% for genre in genres %}
+  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='genres', name=genre) }}">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-book"></i>
+      </span>
+      <span>{{genre}}</span>
+    </span>
+  </a>
+  {% endfor %}
+</p>
+{% endmacro %}
+
+{% macro render_book_box(page) %}
+<article class="box">
+  <div class="columns is-multiline">
+
+    <div class="column is-3">
+      <a href="{{ page.extra.link }}">
+        <img src="../../{{ page.extra.image.src }}" alt="{{ page.extra.image.alt }}">
+      </a>
+    </div>
+
+    <div class="column is-9">
+      <h2 class="title is-2">
+        <a class="has-text-dark" href='{{ page.extra.link }}'>
+          {{ page.title }}
+        </a>
+      </h2>
+      <p class="subtitle">{{ page.description }}</p>
+
+      <!-- Author and date information -->
+      <div class="icon-text has-text-grey">
+        <span>Written by </span>
+        <span class="icon">
+          <i class="fas fa-pen-nib"></i>
+        </span>
+        <span>{{ page.extra.book_author }} </span>
+        <span class="icon">
+          <i class="far fa-calendar-alt"></i>
+        </span>
+        <span><time datetime="{{ page.extra.publishing_date }}">{{ page.extra.publishing_date | date(format='%Y') }}</time></span>
+      </div>
+
+      <div class="icon-text has-text-grey">
+        <span>Read by </span>
+        <span class="icon">
+          <i class="fas fa-book-open"></i>
+        </span>
+        <span>{{ config.extra.author.name }} </span>
+        <span class="icon">
+          <i class="far fa-calendar-alt"></i>
+        </span>
+        <span><time datetime="{{ page.date }}">{{ page.date | date(format='%B %d, %Y') }}</time></span>
+      </div>
+
+      <div class="content mt-3">
+        {{ page.content | safe }}
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered is-8">
+          {{ book_macros::render_stars(rating=page.extra.stars) }}
+        </div>
+        <div class="column has-text-right-desktop">
+          {% if page.taxonomies.genres %}
+          {{ book_macros::render_genres(genres=page.taxonomies.genres) }}
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</article>
+
+{% endmacro %}
+
+{% macro render_stars(rating) %}
+<div>
+  {% for i in [1,2,3,4,5] %}
+    {% if i <= rating %}
+      <p class="fas fa-star ignore-dark-mode" style="color: gold; font-size: 2.5em;"></p>
+    {% else %}
+      <i class="far fa-star ignore-dark-mode" style="color: gold; font-size: 2.5em;"></i>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endmacro %}
+

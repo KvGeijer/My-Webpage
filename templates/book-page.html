@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% import 'book-macros.html' as book_macros %}
+
+{% block title %}
+{{ config.title }} | {{ page.title }}
+{% endblock title %}
+
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10">
+      {{ book_macros::render_book_box(page=page) }}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

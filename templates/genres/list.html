@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import 'book-macros.html' as book_macros %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="has-text-centered">
+      <h1 class="title is-2">
+        <span class="icon">
+          <i class="fas fa-book"></i>
+        </span>
+        Genres
+      </h1>
+      <p class='subtitle is-4'>{{ terms | length }} genres in total</p>
+      <p>
+        {% for genre in terms %}
+          <a style="display: inline-block;" href="{{ get_taxonomy_url(kind='genres', name=genre.name) }}" class="mr-4">
+            <span class="icon">
+              <i class="fas fa-book"></i>
+            </span>
+            <span>{{genre.name}} <sup>{{ genre.pages | length }}</sup></span>
+          </a>
+        {% endfor %}
+      </p>
+    </div>
+    <div style="padding-top: 40px;"></div>
+    <div>
+      {%- for term in terms %}
+        <h2 class="title is-2 has-text-centered">
+          <a class="has-text-dark" href='{{ term.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}'>
+            {{ term.name }}
+          </a>
+        </h2>
+        {%- for page in term.pages %}
+          {{ book_macros::render_book_box(page=page) }}
+        {%- endfor %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
