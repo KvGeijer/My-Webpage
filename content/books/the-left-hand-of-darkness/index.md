@@ -14,7 +14,7 @@ stars = 5
 publishing_date=1969-03-01
 +++
 
-I happened to stumble upon this book (partly due to a recommendation by ChatGPT) and did not have that large expectations. However, it caught me completely off guard and became one of my favorite books in a long time, even though it is over 50 years old. Le Guin has included an excellent introduction, where she partly describes her science fiction books as thought experiments that explore consequences of changes to the world.
+I happened to stumble upon this book (partly due to a recommendation by ChatGPT) and did not have that large expectations. However, it caught me completely off guard and became one of my favorite books in a long time, even though it is over 50 years old. Le Guin has included an excellent introduction, where she partly describes her science fiction books as large thought experiments about the consequences of altering reality.
 
 <!-- more -->
 
