@@ -14,7 +14,10 @@ stars = 3.5
 publishing_date=1838-12-01
 +++
 
-This book follows the poor orphan Oliver Twist, who is born and raised at a communal workhouse, and after escaping to London, involuntarily gets wound up with criminals. One of its main messages is how terribly the poor are treated, seen by the upper class as lazy slobs who don't want to work. I think this following citation, where the oversees joyfully describes to a matron how he turned away a vagrant, who later died in the street, is a good example of the way the upper middle(?) class is described:
+
+This book follows the poor orphan Oliver Twist, who is born and raised at a communal workhouse, and after escaping to London, involuntarily gets involved in the criminal world. One of its main messages is how terribly the poor are treated, seen by the upper classes as lazy slobs who don't want to work.
+<!-- more -->
+I think this following citation, where the oversees joyfully describes to a matron how he turned away a vagrant, who later died in the street, is a good example of the way the upper class is described:
 
 > [...] "Then I'll die in the streets!" says the vagrant. "Oh no, you won't," says our overseer.'
 \

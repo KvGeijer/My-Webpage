@@ -14,7 +14,9 @@ stars = 2.5
 publishing_date=1992-06-01
 +++
 
-I read Snow Crash when I desperately needed a break from [Neuromancer](@/books/neuromancer/index.md), and found it similar, but more enjoyable and well-written in many ways. It might have one of my favorite opening chapters of all time, and proceeds to create an incredibly immersive portrayal of a cyberpunk ultra-capitalistic America after a world-wide economic collapse. I found its portrayal of the technology and metaverse interesting and quite realistic in hindsight.
+I read Snow Crash when I desperately needed a break from [Neuromancer](@/books/neuromancer/index.md), and found it similar, but more enjoyable and well-written in many ways. It might have one of my favorite opening chapters of all time, and proceeds to create an incredibly immersive portrayal of a cyberpunk ultra-capitalistic America after a world-wide economic collapse. Over 30 years later, its portrayal of technology and the metaverse are still relatively realistic and thought provoking.
+
+<!-- more -->
 
 The book does not only cover technology and capitalism, but also centers around religion, history, linguistics, and much more. This led to quite an ambitious story which was able to explore many interesting fields at the same time, while I for the most part could uphold my immersion.
 
