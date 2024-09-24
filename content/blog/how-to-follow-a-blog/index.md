@@ -4,7 +4,7 @@ date=2023-03-17
 
 [taxonomies]
 categories = ["Blogging"]
-tags = ["atom", "rss", "blog"]
+tags = ["rss", "blog"]
 
 [extra]
 toc = true

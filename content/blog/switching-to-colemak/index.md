@@ -3,7 +3,7 @@ title="Learning to Touch Type with Colemak"
 date=2023-06-12
 
 [taxonomies]
-categories = ["Novelties"]
+categories = ["Project"]
 tags = ["keyboard"]
 
 [extra]

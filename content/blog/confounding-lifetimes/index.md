@@ -4,7 +4,7 @@ date=2023-05-03
 
 [taxonomies]
 categories = ["Programming"]
-tags = ["rust", "lifetimes", "zote"]
+tags = ["rust", "zote"]
 
 [extra]
 toc = true

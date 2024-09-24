@@ -4,7 +4,7 @@ date=2024-01-31
 
 [taxonomies]
 categories = ["Research Insights"]
-tags = ["graph", "graph neural network", "machine learning"]
+tags = ["graph", "machine learning"]
 
 [extra]
 toc = true
