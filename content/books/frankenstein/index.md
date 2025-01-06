@@ -14,7 +14,7 @@ stars = 4
 publishing_date=1818-01-01
 +++
 
-Everybody has heard of Frankenstein's monster, but I never knew much more than that it was misunderstood and driven away by humans. I did not assume the story or writing would be that interesting. This was naive of me, and turned out to be completely wrong, definitely being worth a read at its mere 200 pages.
+Everybody has heard of Frankenstein's monster, but I never knew much more than that it was misunderstood and driven away by humans. Frankly, I did not assume the story or writing would be that interesting. This turned out to be completely wrong, it definitely being worth a read at its mere 200 pages.
 
 <!-- more -->
 
