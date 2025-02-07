@@ -6,6 +6,8 @@ template = "standalone-page.html"
 
 # Publications
 
+- Balanced Allocations over Efficient Queues: A Fast Relaxed FIFO Queue (PPoPP 2025). Kåre von Geijer, Philippas Tsigas, Elias Johansson, Sebastian Hermansson.
+  - Links: [Accepted Pdf](./balanced-allocations-over-efficient-queues.pdf), [published artifact](https://doi.org/10.5281/zenodo.14223245).
 - [How to Relax Instantly: Elastic Relaxation of Concurrent Data Structures](https://doi.org/10.1007/978-3-031-69583-4_9) (Euro-Par 2024). Kåre von Geijer, Philippas Tsigas.
   - Won the Euro-Par 2024 _Best Paper_ award.
   - Links: [Published paper](https://doi.org/10.1007/978-3-031-69583-4_9), [accepted manuscript](./how-to-relax-instantly.pdf), [extended pre-print](https://arxiv.org/abs/2403.13644), [published artifact](https://zenodo.org/doi/10.5281/zenodo.11547062).
