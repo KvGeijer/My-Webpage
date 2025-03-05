@@ -11,10 +11,10 @@ book_author = "Han Kang"
 image = { src = "books/the-vegetarian/cover.jpg", alt = "The Vegetarian" }
 link = "https://en.wikipedia.org/wiki/The_Vegetarian"
 stars = 2
-publishing_date=2017-10-30
+publishing_date=2007-10-30
 +++
 
-This one is up there with [Burmese Days](https://en.wikipedia.org/wiki/Burmese_Days) as some of the most repulsive books I have read. It centers around a married woman in South Korea as she is driven insane. The blame for everything bad that happens in the book can be placed on the men.
+This one is up there with [Burmese Days](https://en.wikipedia.org/wiki/Burmese_Days) as some of the most repulsive books I have read. It centers around a married woman in South Korea as she is driven to insanity by different men in her life. It includes themes of domestic violence, the patriarchy, and more broadly shame and desire.
 
 <!-- more -->
 
