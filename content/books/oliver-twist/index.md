@@ -10,7 +10,7 @@ genres = ["Social Realism"]
 book_author = "William Gibson"
 image = { src = "books/oliver-twist/cover.jpg", alt = "Oliver Twist Cover" }
 link = "https://en.wikipedia.org/wiki/Oliver_Twist"
-stars = 3.5
+stars = 2.5
 publishing_date=1838-12-01
 +++
 

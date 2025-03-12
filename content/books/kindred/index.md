@@ -10,7 +10,7 @@ genres = ["Social Realism"]
 book_author = "Octavia E. Butler"
 image = { src = "books/kindred/cover.jpg", alt = "Kindred Cover" }
 link = "https://en.wikipedia.org/wiki/Kindred_(novel)"
-stars = 4
+stars = 3.5
 publishing_date=1979-01-01
 +++
 

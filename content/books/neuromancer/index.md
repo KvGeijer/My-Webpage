@@ -10,7 +10,7 @@ genres = ["Science Fiction"]
 book_author = "William Gibson"
 image = { src = "books/neuromancer/cover.jpg", alt = "Neuromancer Cover" }
 link = "https://en.wikipedia.org/wiki/Neuromancer"
-stars = 1.5
+stars = 2
 publishing_date=1984-07-01
 +++
 
