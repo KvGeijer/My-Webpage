@@ -22,9 +22,7 @@ template = "standalone-page.html"
 
 I have had the pleasure to supervise a few students through their master's theses. These projects have often led to some interesting results, and have been very enjoyable to work with. Here is the list of projects I've supervised:
 
-- Progress-Based Distributed Queues: Exploring the effects of a novel heuristic with partial queues
-using fetch-and-add (2024). Sebastian Hermansson, Elias Johansson.
-- Lock-Free Concurrency in Rust: Analysis of Rust for Lock-Free Programming (2024). Lilly Jinstrand, Marcus Julin.
-- Granular Contention Avoiding Priority Queues in Rust: Exploring granular contention adaption mechanisms for relaxed
-concurrent priority queues in Rust (2024). Sebastian Nielsen, Rasmus Rosengren.
-- [Relaxed Priority Queue & Evaluation of Locks: A semantically relaxed priority queue and an experimentally driven comparison of locks and atomic operations for the sake of relaxation](https://odr.chalmers.se/server/api/core/bitstreams/a667a9ce-1ccd-415c-a779-e788c2d10033/content) (2023). Andreas Rudén, Ludvig Andersson.
+- [Progress-Based Distributed Queues](https://odr.chalmers.se/server/api/core/bitstreams/e4549db1-733c-4c35-8cb9-bdf9df1cf916/content) (2024). Sebastian Hermansson, Elias Johansson.
+- Lock-Free Concurrency in Rust (2024). Lilly Jinstrand, Marcus Julin.
+- Granular Contention Avoiding Priority Queues in Rust (2024). Sebastian Nielsen, Rasmus Rosengren.
+- [Relaxed Priority Queue & Evaluation of Locks](https://odr.chalmers.se/server/api/core/bitstreams/a667a9ce-1ccd-415c-a779-e788c2d10033/content) (2023). Andreas Rudén, Ludvig Andersson.
