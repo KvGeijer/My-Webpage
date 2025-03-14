@@ -4,7 +4,7 @@ date=2024-09-06
 template = "book-page.html"
 
 [taxonomies]
-genres = ["Social Realism"]
+genres = ["Historical Fiction"]
 
 [extra]
 book_author = "Octavia E. Butler"
