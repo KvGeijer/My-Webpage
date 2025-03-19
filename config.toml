@@ -70,22 +70,8 @@ avatar = "/images/avatar.jpg"
 
 # Social links, very few...
 [extra.social]
-email = "kare.kvg@gmail.com"
+email = "contact@karevongeijer.com"
 github = "KvGeijer"
 linkedin = "kare-von-geijer"
 google_scholar = "CkOsYlsAAAAJ"
 orcid = "0009-0007-4823-6855"
-
-
-# To add google analytics
-# [extra.analytics]
-# google = "<your_gtag>"
-
-# To add disqus comments
-# [extra.commenting]
-# disqus = "<your_disqus_shortname>"
-
-# To enable mapbox maps
-# [extra.mapbox]
-# enabled = true
-# access_token = "<your_access_token>"
