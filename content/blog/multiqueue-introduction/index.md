@@ -10,7 +10,7 @@ tags = ["relaxed semantics"]
 toc = true
 +++
 
-In the age of multicore computing, developers face the challenge of designing data structures that efficiently utilize the available hardware parallelism. One of the most important data structures is the priority queue, which is used in a variety of applications ranging from [graph algorithms](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) to [data compression](https://en.wikipedia.org/wiki/Huffman_coding). Computer scientists often get taught some heap-based design of priority queues during university, where smart incremental updates enable good performance. However, trying to parallelize these designs is complex, as strictly incremental algorithms often are. In this post, we will investigate the _MultiQueue_, which is a relaxed priority queue which trades strict sequential semantics for massively increased scalability.
+In the age of multicore computing, developers face the challenge of designing data structures that efficiently utilize the available hardware parallelism. One of the most important data structures is the priority queue, which is used in a variety of applications ranging from [graph algorithms](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) to [data compression](https://en.wikipedia.org/wiki/Huffman_coding). Computer scientists often are taught some heap-based design of priority queues during university, where smart incremental updates enable good performance. However, trying to parallelize these designs is complex, as is often the case with strictly incremental algorithms. In this post, we will investigate the _MultiQueue_, which is a relaxed priority queue that trades strict sequential semantics for massively increased scalability.
 
 <!-- more -->
 
@@ -18,15 +18,15 @@ In the age of multicore computing, developers face the challenge of designing da
 
 # Basic MultiQueue Algorithm
 
-The MultiQueue was first introduced in the paper [MultiQueues: Simple Relaxed Concurrent Priority Queues](https://dl.acm.org/doi/10.1145/2755573.2755616) from 2015 by H. Rihani, P. Sanders and R. Dementiev. Its basic idea is to approximate the behavior of a priority queue by splitting it up into several _partial_ priority queues. Then, a load balancing scheme is used to try to select a good queue for each _insert_ or _deleteMax_.
+The MultiQueue was first introduced in the paper [MultiQueues: Simple Relaxed Concurrent Priority Queues](https://dl.acm.org/doi/10.1145/2755573.2755616) from 2015 by H. Rihani, P. Sanders and R. Dementiev. Its basic idea is to approximate the behavior of a priority queue by splitting it into several _partial_ priority queues. Then, a load balancing scheme is used to try to select a good queue for each _insert_ or _deleteMax_.
 
 ![Basic MultiQueue](./multiqueues-basic.svg)
 
-As seen in the figure, each partial priority queue (PQ) is guarded by a lock for performing the _insert_ and _deleteMax_ operations. However, it also exposes the priority of its highest priority element (Top) that can be read without the lock, but only written when holding the lock.
+As seen in the figure, each partial priority queue (PQ) is protected by a lock, which is required for performing the _insert_ and _deleteMax_ operations. However, it also exposes the priority of its highest priority element (Top) that can be read without the lock, but only written when holding the lock.
 
-Insert operations are kept very simple by just inserting into one of the partial PQ at random.
+Insert operations are kept very simple by just inserting into one of the partial PQs at random.
 
-The key factor is in the _deleteMax_ operation. Here the thread first selects two partial PQ at random, peeking at both of their top priorities.
+The key factor is in the _deleteMax_ operation. Here the thread first selects two partial PQs at random, peeking at both of their top priorities.
 
 ![Basic MultiQueue Example peek](./multiqueues-Basic-Example.svg)
 
@@ -34,21 +34,21 @@ Then, the thread selects the partial PQ with the highest top priority, acquiring
 
 ![Basic MultiQueue Example delete](./multiqueues-Basic-Example-cont.svg)
 
-Here it should be noted that the peek and deleteMax are not performed together atomically. It is possible that another thread deletes the item with the priority peeked in the peek step before you manage to do so. Therefore your actual deleteMax can delete another item than the one you peeked. You can choose to restart the whole operation if you see that the top priority has changed, but it has been shown to not have that much effect empirically.
+Here, it should be noted that the peek and deleteMax are not performed together atomically. It is possible that another thread deletes the item with the priority peeked in the peek step before you manage to do so. Therefore, your actual deleteMax can delete a different item from the one you peeked. You can choose to restart the whole operation if you see that the top priority has changed, but it has been shown to not have that much effect empirically.
 
-So, inserts operate on a random PQ, and deleteMax peeks at the top priority of two random PQ and operates on the one with higher priority. The reason this scheme works is that the deletes act as a self-stabilizing mechanism that keeps the top priorities of the partial PQ relatively close over time. This stems from [the Power-of-Two choice](https://ieeexplore.ieee.org/abstract/document/963420), which is a very similar load-balancing mechanism that has been extensively studied in the past for a scenario of balancing the number of balls in several bins.
+So, inserts operate on a random PQ, and deleteMax peeks at the top priority of two random PQ and operates on the one with higher priority. The reason this scheme works is that the deletes act as a self-stabilizing mechanism that keeps the top priorities of the partial PQ relatively close over time. This stems from the [Power-of-Two choice](https://ieeexplore.ieee.org/abstract/document/963420), which is a very similar load-balancing mechanism that has been extensively studied in the past for a scenario of balancing the number of balls in several bins.
 
-One important configuration we have glossed over is the number of partial PQ. This depends on how relaxed you want the MultiQueue to be, but usually these designs employ a number of partial PQ on the same order of the number of threads.
+One important configuration we have glossed over is the number of partial PQs. This depends on how relaxed you want the MultiQueue to be, but usually these designs employ a number of partial PQs on the same order of the number of threads.
 
 ## Results
 
 In this first paper, they included a short experimental evaluation as seen below. The evaluation is done on a two-socket Intel system where each socket had 14 cores (28 hardware threads). The first 14 threads were pinned to one socket, the 14 next to the other, and then the remaining 28 in the same manner, but using hyperthreads. The only exception is the MultiQ HT, which allocated hyperthreads before the second socket.
 
-They compare versions of the MultiQueue where the number of partial PQ was a multiple of the number of threads (c), also one HT version that prefers hyperthreads. They also compare with the [SprayList](https://dl.acm.org/doi/10.1145/2688500.2688523) which is an earlier state-of-the-art relaxed priority queue. They included the [Lotan](https://ieeexplore.ieee.org/document/845994) and [Linden](https://link.springer.com/chapter/10.1007/978-3-319-03850-6_15) lock-free skip-list based priority queues as representations for scalable lock-free priority queues, as well as a lock-based 8-ary heap as a baseline.
+They compare versions of the MultiQueue where the number of partial PQ were a multiple of the number of threads (c), also one HT version that prefers hyperthreads. They also compare with the [SprayList](https://dl.acm.org/doi/10.1145/2688500.2688523) which is an earlier state-of-the-art relaxed priority queue. They included the [Lotan](https://ieeexplore.ieee.org/document/845994) and [Linden](https://link.springer.com/chapter/10.1007/978-3-319-03850-6_15) lock-free skip-list based priority queues as representations for scalable lock-free priority queues, as well as a lock-based 8-ary heap as a baseline.
 
 ![Basic MultiQueue Throughput](./basic-throughput.svg)
 
-Overall, the graph shows that the MultiQueue significantly outscaled the strict implementations, and also outpeformed the relaxed SprayList. The scaling is not super linear, which largely is due to sub-optimal scalability on multi-sockets.
+Overall, the graph shows that the MultiQueue significantly outscaled the strict implementations, and also outperformed the relaxed SprayList. The scaling is not super linear, which largely is due to sub-optimal scalability on multi-sockets.
 
 Furthermore, the following plot shows the rank error, which is a measure of relaxation defined for a deleteMax operation as the number of other items currently in the queue with a higher priority than the deleted one. They also include some theoretical lines following a basic analysis model, which you largely can ignore here.
 
@@ -59,7 +59,7 @@ This shows that even while outscaling the SprayList in throughput, the MultiQueu
 
 # Faster MultiQueues
 
-In 2021, M. Williams, P. Sanders and R.Dementiev published [Engineering MultiQueues: Fast Relaxed Concurrent Priority Queues](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2021.81), where the two last authors are the same as the [first short paper](https://dl.acm.org/doi/10.1145/2755573.2755616). This paper fleshes out the MultiQueue design, adding optimizations and improving the analysis as well as experimental evaluation. Here, we will focus on the main two optimizations, which both has to do with improving cache performance.
+In 2021, M. Williams, P. Sanders and R.Dementiev published [Engineering MultiQueues: Fast Relaxed Concurrent Priority Queues](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2021.81), where the two last authors are the same as the [first short paper](https://dl.acm.org/doi/10.1145/2755573.2755616). This paper fleshes out the MultiQueue design, adding optimizations and improving the analysis as well as experimental evaluation. Here, we will focus on the main two optimizations, which both have to do with improving cache performance.
 
 ## Buffering
 
@@ -104,9 +104,9 @@ Here the different designs differentiate themselves a bit more, and we can see t
 
 The final MultiQueue design we will look at comes from the paper [Multi-queues can be state-of-the-art priority schedulers](https://dl.acm.org/doi/abs/10.1145/3503221.3508432) from 2021 by A. Postnikova, N. Koval, G. Nadiradze, D. Alistarh. They introduce the _Stealing MultiQueue_ (SMQ) and uses it for task scheduling in graph algorithms, like the SSSP problem.
 
-The key idea utilized by this paper is the results of an [earlier theoretical paper]((https://dl.acm.org/doi/abs/10.1145/3087801.3087810)) that analyzed the probabilistic guarantees of the MultiQueue. It played with uneven probability distributions for selecting partial PQs, and found that the stability would hold up to a degree of imbalance in the distributions.
+The key idea utilized by this paper is the results of an [earlier theoretical paper](https://dl.acm.org/doi/abs/10.1145/3087801.3087810) that analyzed the probabilistic guarantees of the MultiQueue. It played with uneven probability distributions for selecting partial PQs, and found that the stability would hold up to a degree of imbalance in the distributions.
 
-So, the SMQ creates and assign one PQ to each thread. Then, the threads are much more likely to operate on their own PQ than any of the others, leading to much higher temporal cache locality.
+So, the SMQ creates and assigns one PQ to each thread. Then, the threads are much more likely to operate on their own PQ than any of the others, leading to much higher temporal cache locality.
 
 Inserts simply insert into the threads local PQ. DeleteMax on the other hand has a probability of *p* to select one other random queue, comparing its top to the local PQs top, and deleting from the one with higher priority. Otherwise it simply deletes from the local queue. They call this probability _p_ the stealing probability, hence the queue name.
 
@@ -133,7 +133,7 @@ I am sure we will see some more really interesting work on MultiQueues. Both ext
 
 ## Further Reading
 
-If this post have made you interested in MultiQueues and the the topic of relaxed data structures, then I here present some suggestions for further reading. For a more thorough introduction to the problems and needs faced in modern shared-memory parallel programming, I have written about [Data Structures in the Multicore Age](@/blog/data-structures-in-the-multicore-age/index.md). I also have a more theoretical post about a [framework for defining relaxed data structures](@/blog/quantitative-relaxation/index.md).
+If this post has made you interested in MultiQueues and the the topic of relaxed data structures, then I here present some suggestions for further reading. For a more thorough introduction to the problems and needs faced in modern shared-memory parallel programming, I have written about [Data Structures in the Multicore Age](@/blog/data-structures-in-the-multicore-age/index.md). I also have a more theoretical post about a [framework for defining relaxed data structures](@/blog/quantitative-relaxation/index.md).
 
 The main MultiQueue articles I built this post around were:
 - [MultiQueues: Simple Relaxed Concurrent Priority Queues](https://dl.acm.org/doi/10.1145/2755573.2755616), which proposed the MultiQueue design.
@@ -144,4 +144,4 @@ However, there are also a two important papers about the theoretical aspects and
 - [The Power of Choice in Priority Scheduling](https://dl.acm.org/doi/abs/10.1145/3087801.3087810) performs the first thorough analysis of the MultiQueue design, giving strong probabilistic guarantees on its rank errors. However, this analysis is only done for simplified sequential processes.
 - [Distibutionally Linearizable Data Structures](https://dl.acm.org/doi/10.1145/3210377.3210411) extends the analysis of the previous paper to also cover a subset of concurrent executions. It also coins the term _distributional linearizability_ for this type of randomized relaxation correctness condition.
 
-I hope these will give a good foundation for reading about the MultiQueue, and that these papers' _Related Work_ sections provide many more interesting papers to read. For example, the core choce-of-two idea of the MultiQueue was applied to FIFO queues in the paper [Performance, scalability, and semantics of concurrent FIFO queues](https://dl.acm.org/doi/abs/10.1007/978-3-642-33078-0_20) three years before the first MultiQueue paper was published.
+I hope these will give a good foundation for reading about the MultiQueue, and that these papers' _Related Work_ sections provide many more interesting papers to read. For example, the core choice-of-two idea of the MultiQueue was applied to FIFO queues in the paper [Performance, scalability, and semantics of concurrent FIFO queues](https://dl.acm.org/doi/abs/10.1007/978-3-642-33078-0_20) three years before the first MultiQueue paper was published.
