@@ -10,7 +10,7 @@ genres = ["Autofiction"]
 book_author = "Carl Johan de Geer"
 image = { src = "books/jakten-mot-nollpunkten/cover.png", alt = "Cover" }
 link = "https://www.adlibris.com/se/bok/jakten-mot-nollpunkten-9789189603318"
-stars = 5
+stars = 4.5
 publishing_date=2008-09-16
 +++
 
