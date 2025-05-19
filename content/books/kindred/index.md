@@ -10,7 +10,7 @@ genres = ["Historical Fiction"]
 book_author = "Octavia E. Butler"
 image = { src = "books/kindred/cover.jpg", alt = "Kindred Cover" }
 link = "https://en.wikipedia.org/wiki/Kindred_(novel)"
-stars = 3.5
+stars = 3
 publishing_date=1979-01-01
 +++
 
