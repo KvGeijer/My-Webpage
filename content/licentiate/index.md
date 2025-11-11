@@ -6,11 +6,11 @@ template = "standalone-page.html"
 
 # Time and Place
 
-The seminar will take place 10:15 - 12 in HA3, at Chalmers Johanneberg Campus. There is also a Zoom link if some participants want to join online: [https://chalmers.zoom.us/j/6890207916?omn=63717143006](https://chalmers.zoom.us/j/6890207916?omn=63717143006).
+The seminar will take place 10:00 - 12 in HA3, at Chalmers Johanneberg Campus. There is also a Zoom link if some participants want to join online: [https://chalmers.zoom.us/j/6890207916?omn=63717143006](https://chalmers.zoom.us/j/6890207916?omn=63717143006).
 
 # Licentiate Thesis
 
-Here is a copy of the thesis PDF: [Semantic Relaxation of Concurrent Queues: Efficient and Elastic Designs](./semantic-relaxation-of-concurrent-data-structures:efficient-and-elastic-designs.pdf), including its appended papers.
+Here is a copy of the thesis PDF: [Semantic Relaxation of Concurrent Queues: Efficient and Elastic Designs](./semantic-relaxation-of-concurrent-data-structures:efficient-and-elastic-designs.pdf), including its appended papers. The publication is also available on Chalmers Research: [https://research.chalmers.se/publication/549039](https://research.chalmers.se/publication/549039).
 
 The thesis is split in two parts. The first parth is the _thesis overview_, introducing the topic, shared background, and outlines its research questions and contributions. The second part is the _appended papers_, which make up the contributions of the thesis. The appended papers can also be read separately, as they were originally published.
 
