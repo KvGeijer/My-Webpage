@@ -146,6 +146,8 @@
   {% for i in [1,2,3,4,5] %}
     {% if i <= rating %}
       <p class="fas fa-star ignore-dark-mode" style="color: gold; font-size: 2.5em;"></p>
+    {% elif i < rating + 0.6 %}
+      <p class="fas fa-star-half-stroke ignore-dark-mode" style="color: gold; font-size: 2.5em;"></p>
     {% else %}
       <i class="far fa-star ignore-dark-mode" style="color: gold; font-size: 2.5em;"></i>
     {% endif %}

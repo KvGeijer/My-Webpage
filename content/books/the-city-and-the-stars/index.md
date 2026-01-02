@@ -10,7 +10,7 @@ genres = ["Science Fiction"]
 book_author = "Arthur C. Clarke"
 image = { src = "books/the-city-and-the-stars/cover.png", alt = "Cover Picture" }
 link = "https://en.wikipedia.org/wiki/The_City_and_the_Stars"
-stars = 3.5
+stars = 3.2
 publishing_date=1956-01-27
 +++
 
@@ -22,4 +22,4 @@ The story centers around the billion-year city Diaspar, which was built to last 
 
 Without spoiling too much, I found the part about Lys the most disappointing. I don't think it adequately explores how such a civilization could survive for such a long time. Maybe I just need to find the answer for myself, but I would have loved more hints or ideas for such a different culture.
 
-This is certainly a very good science fiction novel. It reads extremely modern for how old it is. I think the foundational ideas of eternity and Diaspar will stay in my mind for a long time, but a lot of the actual plot feels slightly less interesting.  
+This is certainly a very good science fiction novel. It reads extremely modern for how old it is. I think the foundational ideas of eternity and Diaspar will stay in my mind for a long time, but a lot of the actual plot feels slightly less interesting.
