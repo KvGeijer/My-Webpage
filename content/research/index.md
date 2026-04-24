@@ -5,6 +5,7 @@ template = "standalone-page.html"
 +++
 
 # Awards
+- Nominated for the 2026 Pedagogical Prize by the Chalmers IT Student Section.
 - Winner of the Parallel SSSP track at the [FastCode Programming Challenge](https://fastcode.org/events/fastcode-challenge/) at [PPoPP 2025](https://ppopp25.sigplan.org/).
 - Best Paper Award at [Euro-Par 2024](https://2024.euro-par.org/).
 
