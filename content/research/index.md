@@ -26,6 +26,10 @@ template = "standalone-page.html"
 
 I have had the pleasure to supervise a few students through their master's theses. These projects have often led to some interesting results, and have been very enjoyable to work with. Here is the list of projects I've supervised (links included for the ones available online):
 
+- Scalable Parallel Branch-and-Bound with Relaxed Queues (2026). Ludvig Sandh.
+- Understanding Work-Efficiency of label-correcting Single Source Shortest Path Algorithms (2026). Alfred Berglöf, Johan Berg.
+- The Benefits and Limitations of Rust for Concurrent Data Structures (2026). Elliot Hultgren, Max Vallin Ek.
+- The Psychology of Fear in Lock-Free Rust Programming (2026). Emil Björnlinger.
 - [A Faster Breadth-First Search on Sparse Graphs](https://odr.chalmers.se/items/07e25284-38a8-47e2-a6ba-8f70b66eaba9) (2025). Simon Holst, Johan Selin.
 - [Efficiently Calculating Relaxation Errors](https://odr.chalmers.se/items/65b16051-4f41-4cb0-b179-14f9ac3602d6) (2025). Elis Kleen, Victor Olin.
 - [Accurate Linearizations for Relaxed FIFO queues](https://odr.chalmers.se/items/e15159b6-a63a-45fc-9e3a-5bc81d608e0f) (2025). Ida Dahl, Hanna Schaff.
