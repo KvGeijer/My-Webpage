@@ -11,6 +11,7 @@ template = "standalone-page.html"
 
 # Publications
 
+- [**Relaxed Data Structures for Practical Parallelism: Survey and Design Recommendations**](https://doi.org/10.1145/3820355.3820390) (ApPLIED 2026). Philippas Tsigas, Kåre von Geijer.
 - [**Semantic Relaxation of Concurrent Data Structures: Efficient and Elastic Designs**](../licentiate/semantic-relaxation-of-concurrent-data-structures:efficient-and-elastic-designs.pdf) (Licentiate thesis 2025). Kåre von Geijer.
 - [**Elastic Relaxation of Concurrent Data Structures**](https://doi.org/10.1109/TPDS.2025.3587888) (TPDS 2025). Kåre von Geijer, Philippas Tsigas.
   - Links: [Open access paper](https://doi.org/10.1109/TPDS.2025.3587888), [published artifact](https://doi.org/10.5281/zenodo.15872817).
@@ -26,9 +27,9 @@ template = "standalone-page.html"
 
 I have had the pleasure to supervise a few students through their master's theses. These projects have often led to some interesting results, and have been very enjoyable to work with. Here is the list of projects I've supervised (links included for the ones available online):
 
-- Scalable Parallel Branch-and-Bound with Relaxed Queues (2026). Ludvig Sandh.
-- Understanding Work-Efficiency of label-correcting Single Source Shortest Path Algorithms (2026). Alfred Berglöf, Johan Berg.
-- The Benefits and Limitations of Rust for Concurrent Data Structures (2026). Elliot Hultgren, Max Vallin Ek.
+- [Scalable Parallel Branch-and-Bound with Relaxed Concurrent Queues](https://odr.chalmers.se/items/780381bc-4910-49fe-a33f-0cc5c790f332) (2026). Ludvig Sandh.
+- [Understanding Work-Efficiency of label-correcting Single Source Shortest Path Algorithms](https://odr.chalmers.se/items/72cbd8e5-8bc9-4155-8fc6-0cd0d606f0bd) (2026). Alfred Berglöf, Johan Berg.
+- [The Benefits and Limitations of Rust for Implementing Concurrent Data Structures](https://odr.chalmers.se/items/89a03c90-07ed-4a11-9d37-e49f1a1056f9) (2026). Elliot Hultgren, Max Vallin Ek.
 - The Psychology of Fear in Lock-Free Rust Programming (2026). Emil Björnlinger.
 - [A Faster Breadth-First Search on Sparse Graphs](https://odr.chalmers.se/items/07e25284-38a8-47e2-a6ba-8f70b66eaba9) (2025). Simon Holst, Johan Selin.
 - [Efficiently Calculating Relaxation Errors](https://odr.chalmers.se/items/65b16051-4f41-4cb0-b179-14f9ac3602d6) (2025). Elis Kleen, Victor Olin.
